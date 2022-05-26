@@ -1,6 +1,6 @@
 #include "palettes.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
-#define MIN_PALETTE_SIZE 32
+#define MIN_PALETTE_SIZE                         32
 /////////////////////////////////////////////////////////////////////////////////////////////
 #define DEBUG_PALETTE_CONTENT_COLORS             false
 #define DEBUG_PALETTE_PRETTY_JSON_CONTENT        false
@@ -13,7 +13,7 @@
 #define EMBEDDED_PALETTES_TABLE_TIMESTAMP        embedded_palettes_table_created_ts
 #define EMBEDDED_PALETTES_TABLE_NAME             embedded_palettes_table
 #define EMBEDDED_PALETTES_TABLE_SIZE             embedded_palettes_table_bytes
-#define EMBEDDED_PALETTES_TABLE_QTY              embedded_palettes_table_qty-1
+#define EMBEDDED_PALETTES_TABLE_QTY              embedded_palettes_table_qty - 1
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct djbhash_node *EMBEDDED_PALETTES_TABLE_ITEM;
 struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
@@ -40,11 +40,11 @@ int parse_embedded_palettes(){
   int         qty = 0, ui, palettes_qty = 0;
 
   while (EMBEDDED_PALETTES_TABLE_ITEM && (++i < EMBEDDED_PALETTES_TABLE_QTY)) {
-    char                   *palette      = __basename((char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename);
-    size_t                 palette_size  = (size_t)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->size;
-    char                   *palette_data = (char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data;
-    if(strlen(palette_data)<MIN_PALETTE_SIZE){
-continue;
+    char   *palette      = __basename((char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename);
+    size_t palette_size  = (size_t)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->size;
+    char   *palette_data = (char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data;
+    if (strlen(palette_data) < MIN_PALETTE_SIZE) {
+      continue;
     }
     struct StringFNStrings palette_lines = stringfn_split_lines_and_trim(palette_data);
     if (EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG) {

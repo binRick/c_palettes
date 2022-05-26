@@ -8,6 +8,7 @@ int load_palettes_hash();
 int parse_embedded_palettes();
 int parse_args(int, char **);
 int debug_args();
+
 ////////////////////////////////////////////
 #include "palettes.c"
 #include "utils.c"
