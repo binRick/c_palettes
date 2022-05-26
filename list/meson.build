@@ -16,7 +16,7 @@ list_deps = [
      fs_dep,
      ansicodes_dep,
      rgba_dep, 
-     svpng_dep, spng_dep,
+     #     svpng_dep, spng_dep,
      cargs_dep,
      c_timer_dep,
      c_fsio_dep,

@@ -64,7 +64,7 @@ parson_shared_dep = dependency('parson',fallback:['parson', 'parson_shared_dep']
 subdir('list')
 enabled_bins = [
     { 'bin': 'xxxxxxxxxx',            'tests': [], 'deps': [
-                                                          svpng_dep, spng_dep,
+      #                                                          svpng_dep, spng_dep,
                                                           rgba_dep,    
                                                           parson_shared_dep,
                                                           cstringfn_dep,
