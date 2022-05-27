@@ -1,19 +1,19 @@
 #include "palettes.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
-#define MAX_VALID_EMBEDDED_PALETTES_DATA_AGE_MINUTES 10
-#define EMBEDDED_PALETTES_TABLE_HASH                embedded_palettes_table_hash
-#define EMBEDDED_PALETTE_NAMES_TABLE_HASH          embedded_palettes_table_hash
+#define MAX_VALID_EMBEDDED_PALETTES_DATA_AGE_MINUTES    10
+#define EMBEDDED_PALETTES_TABLE_HASH                    embedded_palettes_table_hash
+#define EMBEDDED_PALETTE_NAMES_TABLE_HASH               embedded_palettes_table_hash
 /////////////////////////////////////////////////////////////////////////////////////////////
-#define EMBEDDED_PALETTES_TABLE_ITEM         embedded_palettes_table_item
-#define EMBEDDED_PALETTES_TABLE_TIMESTAMP    embedded_palettes_table_created_ts
-#define EMBEDDED_PALETTES_TABLE_NAME         embedded_palettes_table
-#define EMBEDDED_PALETTES_TABLE_SIZE         embedded_palettes_table_bytes
-#define EMBEDDED_PALETTES_TABLE_QTY          embedded_palettes_table_qty - 1
-#define EMBEDDED_PALETTES_AGE_MS             timestamp() - EMBEDDED_PALETTES_TABLE_TIMESTAMP
-#define EMBEDDED_PALETTES_AGE_STRING         milliseconds_to_string(EMBEDDED_PALETTES_AGE_MS)
-#define DEFAULT_STYLE                        AC_GREEN
-#define DEBUG_ARGS                           false
-#define DEBUG_PARSED_ARGS                    false
+#define EMBEDDED_PALETTES_TABLE_ITEM                    embedded_palettes_table_item
+#define EMBEDDED_PALETTES_TABLE_TIMESTAMP               embedded_palettes_table_created_ts
+#define EMBEDDED_PALETTES_TABLE_NAME                    embedded_palettes_table
+#define EMBEDDED_PALETTES_TABLE_SIZE                    embedded_palettes_table_bytes
+#define EMBEDDED_PALETTES_TABLE_QTY                     embedded_palettes_table_qty - 1
+#define EMBEDDED_PALETTES_AGE_MS                        timestamp() - EMBEDDED_PALETTES_TABLE_TIMESTAMP
+#define EMBEDDED_PALETTES_AGE_STRING                    milliseconds_to_string(EMBEDDED_PALETTES_AGE_MS)
+#define DEFAULT_STYLE                                   AC_GREEN
+#define DEBUG_ARGS                                      false
+#define DEBUG_PARSED_ARGS                               false
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct djbhash_node *EMBEDDED_PALETTES_TABLE_ITEM;
 struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
@@ -216,10 +216,10 @@ int debug_args(){
           ansistr(AC_RESETALL AC_UNDERLINE "Palette: %s")
           "\n"
           ansistr(AC_RESETALL AC_UNDERLINE "File: %s")
-          "\n"
-          , args.verbose, args.mode, args.count
-          , args.pretty, args.color
-          , args.palette, args.file
+          "\n",
+          args.verbose, args.mode, args.count,
+          args.pretty, args.color,
+          args.palette, args.file
           );
   return(EXIT_SUCCESS);
 }
@@ -254,26 +254,28 @@ int main(int argc, char **argv) {
 
   if ((strcmp(args.mode, "palette-files") == 0)) {
     struct StringFNStrings items = get_palette_files();
-    if(args.verbose)
-        print_strings(items);
+    if (args.verbose) {
+      print_strings(items);
+    }
     printf(AC_RESETALL AC_GREEN AC_REVERSED "%d palette files.\n" AC_RESETALL, items.count);
     return(0);
   }
 
   if ((strcmp(args.mode, "palette-names") == 0)) {
     struct StringFNStrings items = get_palette_names();
-    if(args.verbose)
-        print_strings(items);
+    if (args.verbose) {
+      print_strings(items);
+    }
     printf(AC_RESETALL AC_GREEN AC_REVERSED "%d palette names.\n" AC_RESETALL, items.count);
     return(0);
   }
 
   if ((strcmp(args.mode, "palette-file-exists") == 0)) {
-    return(palette_file_exists(args.file) ? 0 : 1 );
+    return(palette_file_exists(args.file) ? 0 : 1);
   }
 
   if ((strcmp(args.mode, "palette-name-exists") == 0)) {
-    return(palette_name_exists(args.palette) ? 0 : 1 );
+    return(palette_name_exists(args.palette) ? 0 : 1);
   }
 
   if ((strcmp(args.mode, "palette-name-exists-qty") == 0)) {
@@ -293,8 +295,9 @@ int main(int argc, char **argv) {
 
   if ((strcmp(args.mode, "colors") == 0)) {
     struct StringFNStrings items = get_palette_colors(args.palette);
-    if(args.verbose)
-        print_strings(items);
+    if (args.verbose) {
+      print_strings(items);
+    }
     printf(AC_RESETALL AC_GREEN AC_REVERSED "%d palette names.\n" AC_RESETALL, items.count);
     return(0);
   }
@@ -303,97 +306,108 @@ int main(int argc, char **argv) {
   return(1);
 
   return(EXIT_SUCCESS);
-}
+} /* main */
 
-   
-  
- char *prefix_string(char *PREFIX, char *STRING){
-    struct StringBuffer *sb = stringbuffer_new_with_options(strlen(STRING)+2,true);
-    stringbuffer_append_string(sb,PREFIX);
-    stringbuffer_append_string(sb,STRING);
-    char *NS = stringbuffer_to_string(sb);
-    stringbuffer_release(sb);
-    return NS;
- }
+
+char *prefix_string(char *PREFIX, char *STRING){
+  struct StringBuffer *sb = stringbuffer_new_with_options(strlen(STRING) + 2, true);
+
+  stringbuffer_append_string(sb, PREFIX);
+  stringbuffer_append_string(sb, STRING);
+  char *NS = stringbuffer_to_string(sb);
+
+  stringbuffer_release(sb);
+  return(NS);
+}
 
 struct StringFNStrings palette_name_files(char *PALETTE_NAME){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
+  struct StringBuffer    *sb   = stringbuffer_new_with_options(1024, true);
   struct StringFNStrings files = get_palette_files();
-  for(int i=0;i<files.count;i++){
-        if(
-         stringfn_equal(PALETTE_NAME, files.strings[i]) 
-         || 
-         stringfn_ends_with(files.strings[i], prefix_string("/", PALETTE_NAME))
-        ){
-            stringbuffer_append_string(sb,files.strings[i]);
-            stringbuffer_append_string(sb,"\n");
-        }
+
+  for (int i = 0; i < files.count; i++) {
+    if (
+      stringfn_equal(PALETTE_NAME, files.strings[i])
+       ||
+      stringfn_ends_with(files.strings[i], prefix_string("/", PALETTE_NAME))
+      ) {
+      stringbuffer_append_string(sb, files.strings[i]);
+      stringbuffer_append_string(sb, "\n");
+    }
   }
   return(stringbuffer_to_strings(sb));
-
 }
 
+
 bool palette_file_exists(char *PALETTE_FILE){
-    return(
-            (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE) != NULL)
-            ||
-            (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, normalize_palette_filename(PALETTE_FILE)) != NULL)
-            ||
-            (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, denormalize_palette_filename(PALETTE_FILE)) != NULL)
+  return(
+    (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE) != NULL)
+        ||
+    (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, normalize_palette_filename(PALETTE_FILE)) != NULL)
+        ||
+    (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, denormalize_palette_filename(PALETTE_FILE)) != NULL)
     );
 }
 
+
 int palette_name_exists_qty(char *PALETTE_NAME){
-    int qty = 0;
-    struct StringFNStrings names = get_palette_names();
-    for(int i=0;i<names.count;i++){
-        if(stringfn_equal(PALETTE_NAME,names.strings[i]))
-            qty++;
+  int                    qty   = 0;
+  struct StringFNStrings names = get_palette_names();
+
+  for (int i = 0; i < names.count; i++) {
+    if (stringfn_equal(PALETTE_NAME, names.strings[i])) {
+      qty++;
     }
-    return qty;
+  }
+  return(qty);
 }
 
+
 bool palette_name_exists(char *PALETTE_NAME){
-    return(palette_name_exists_qty(PALETTE_NAME) > 0);
+  return(palette_name_exists_qty(PALETTE_NAME) > 0);
 }
 
 struct StringFNStrings get_palette_colors(char *PALETTE_NAME){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
+  struct StringBuffer    *sb   = stringbuffer_new_with_options(1024, true);
   struct StringFNStrings files = get_palette_files();
   struct StringFNStrings names = get_palette_names();
   struct StringFNStrings items = stringfn_split_lines_and_trim(stringbuffer_to_string(sb));
+
   stringbuffer_release(sb);
-  return items;
+  return(items);
 }
 
+
 int print_strings(struct StringFNStrings S){
-    for(int i=0;i<S.count;i++){
-        printf("%s\n",S.strings[i]);
-    }
-    return(0);
+  for (int i = 0; i < S.count; i++) {
+    printf("%s\n", S.strings[i]);
+  }
+  return(0);
 }
 
 struct StringBuffer *strings_to_stringbuffer(struct StringFNStrings S){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
-  for(int i=0;i<S.count;i++){
-    stringbuffer_append_string(sb,S.strings[i]);
-    stringbuffer_append_string(sb,"\n");
-  }
-  return sb;
+  struct StringBuffer *sb = stringbuffer_new_with_options(1024, true);
 
+  for (int i = 0; i < S.count; i++) {
+    stringbuffer_append_string(sb, S.strings[i]);
+    stringbuffer_append_string(sb, "\n");
+  }
+  return(sb);
 }
 
 struct StringFNStrings stringbuffer_to_strings(struct StringBuffer *SB){
   struct StringFNStrings items = stringfn_split_lines_and_trim(stringfn_trim(stringbuffer_to_string(SB)));
-  return items;
+
+  return(items);
 }
 
 struct StringFNStrings get_palette_names(){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
-  struct StringFNStrings S = get_palette_files();
-  for(int i=0;i<S.count;i++){
-    if(strlen(stringfn_trim(S.strings[i]))<1) 
-       continue;
+  struct StringBuffer    *sb = stringbuffer_new_with_options(1024, true);
+  struct StringFNStrings S   = get_palette_files();
+
+  for (int i = 0; i < S.count; i++) {
+    if (strlen(stringfn_trim(S.strings[i])) < 1) {
+      continue;
+    }
     stringbuffer_append_string(sb, stringfn_trim(__basename(S.strings[i])));
     stringbuffer_append_string(sb, "\n");
   }
@@ -401,28 +415,32 @@ struct StringFNStrings get_palette_names(){
 }
 
 struct StringFNStrings palette_file_content(char *PALETTE_FILE){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
+  struct StringBuffer *sb = stringbuffer_new_with_options(1024, true);
+
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE);
-  if(EMBEDDED_PALETTES_TABLE_ITEM != NULL){
+  if (EMBEDDED_PALETTES_TABLE_ITEM != NULL) {
     stringbuffer_append_string(sb, stringfn_trim(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data));
   }else{
-      EMBEDDED_PALETTES_TABLE_ITEM = djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, prefix_string("./", PALETTE_FILE));
-      if(EMBEDDED_PALETTES_TABLE_ITEM != NULL){
-        stringbuffer_append_string(sb, stringfn_trim(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data));
-      }
+    EMBEDDED_PALETTES_TABLE_ITEM = djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, prefix_string("./", PALETTE_FILE));
+    if (EMBEDDED_PALETTES_TABLE_ITEM != NULL) {
+      stringbuffer_append_string(sb, stringfn_trim(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data));
+    }
   }
   return(stringbuffer_to_strings(sb));
 }
 
 struct StringFNStrings get_palette_files(){
-  struct StringBuffer *sb = stringbuffer_new_with_options(1024,true);
+  struct StringBuffer *sb = stringbuffer_new_with_options(1024, true);
+
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   for (int i = 0; EMBEDDED_PALETTES_TABLE_ITEM; i++) {
-    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) continue;
-    stringbuffer_append_string(sb, 
-            ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename
-            );
+    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
+      continue;
+    }
+    stringbuffer_append_string(sb,
+                               ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename
+                               );
     stringbuffer_append_string(sb, "\n");
     EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   }
@@ -430,21 +448,23 @@ struct StringFNStrings get_palette_files(){
   return(stringbuffer_to_strings(sb));
 }
 
+
 char *denormalize_palette_filename(char *FILENAME){
-    if (!stringfn_starts_with(FILENAME, "./")) {
-        char *FF=        malloc(strlen(FILENAME)-2);
-        sprintf(FF,"./%s",FILENAME);
-        return FF;
-    }
-    return FILENAME;
+  if (!stringfn_starts_with(FILENAME, "./")) {
+    char *FF = malloc(strlen(FILENAME) - 2);
+    sprintf(FF, "./%s", FILENAME);
+    return(FF);
+  }
+  return(FILENAME);
 }
 
+
 char *normalize_palette_filename(char *FILENAME){
-    if (stringfn_starts_with(FILENAME, "./")) {
-        char *FF=        stringfn_substring(FILENAME, 2, 0);
-        return FF;
-    }
-    return FILENAME;
+  if (stringfn_starts_with(FILENAME, "./")) {
+    char *FF = stringfn_substring(FILENAME, 2, 0);
+    return(FF);
+  }
+  return(FILENAME);
 }
 
 
@@ -453,17 +473,18 @@ int load_palettes_hash(){
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   char *FILENAME;
+
   for (int i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
     if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
       continue;
     }
     FILENAME = strdup(EMBEDDED_PALETTES_TABLE_NAME[i].filename);
     djbhash_set(
-            &EMBEDDED_PALETTES_TABLE_HASH, 
-            FILENAME, 
-            &EMBEDDED_PALETTES_TABLE_NAME[i], 
-            DJBHASH_OTHER
-    );
+      &EMBEDDED_PALETTES_TABLE_HASH,
+      FILENAME,
+      &EMBEDDED_PALETTES_TABLE_NAME[i],
+      DJBHASH_OTHER
+      );
     free(FILENAME);
   }
 
@@ -496,6 +517,8 @@ int load_palettes_hash(){
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
   return(EXIT_SUCCESS);
 } /* load_palettes_hash */
+
+
 int parse_args(int argc, char *argv[]){
   char               identifier;
   const char         *value;
@@ -536,7 +559,7 @@ int parse_args(int argc, char *argv[]){
       args.file = value;
       break;
     case 'p':
-      value     = cag_option_get_value(&context);
+      value        = cag_option_get_value(&context);
       args.palette = value;
       break;
     case 'P':

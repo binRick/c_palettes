@@ -35,18 +35,12 @@ cc = meson.get_compiler('c')
 #//***********************************************************/
 sh = find_program('sh', required : true)
 pwd_bin = find_program('pwd', required : true)
-#//***********************************************************/
+
 pwd = run_command(pwd_bin, check: true).stdout().strip()
-#//***********************************************************/
+
 inc = include_directories(
   './submodules/c_string_buffer/include',
   './submodules',
-  #'.',
-  #'./include', 
-  #'./src', 
-  #//  './submodules/timestamp', 
-  #'./submodules/djbhash/src',
-  #  './submodules',
 )
 #//***********************************************************/
 #subdir('meson/deps/cstringfn')
@@ -58,9 +52,11 @@ inc = include_directories(
 subdir('meson/deps')
 subdir('meson/deps/embedded_palettes')
 cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
+termpaint_dep = dependency('termpaint', required: true)
 spng_dep = dependency('libspng',fallback:['libspng', 'spng_dep'])
 #c_colors_dep = dependency('c_colors',fallback:['c_colors', 'c_colors_dep'])
 parson_shared_dep = dependency('parson',fallback:['parson', 'parson_shared_dep'])
+subdir('menu')
 subdir('list')
 enabled_bins = [
     { 'bin': 'xxxxxxxxxx',            'tests': [], 'deps': [
