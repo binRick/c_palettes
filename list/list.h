@@ -41,6 +41,8 @@
 #define DEFAULT_PRETTY         false
 #define DEFAULT_COLOR          false
 #define DEFAULT_MODE           "names"
+#define DEFAULT_PALETTE_NAME        "vscode"
+#define DEFAULT_PALETTE_FILE        "./kfc/dark/vscode"
 #define C256_FG_CODE           "\x1b[38;5;%dm"
 #define C256_BG_CODE           "\x1b[48;5;%dm"
 #define TRUECOLOR_FG_CODE      "\x1b[38;2;%d;%d;%dm"
@@ -58,6 +60,8 @@ typedef struct CLI_ARGS {
   int  count;
   bool pretty;
   int  color;
+  char *palette;
+  char *file;
 } args_t;
 
 static struct cag_option options[] = {
@@ -76,8 +80,8 @@ static struct cag_option options[] = {
     .access_name    = "count",
     .value_name     = "COUNT",
     .description    = "Item Count" },
-  { .identifier     = 'p',
-    .access_letters = "p",
+  { .identifier     = 'P',
+    .access_letters = "P",
     .access_name    = "pretty",
     .value_name     = NULL,
     .description    = "JSON Pretty Mode" },
@@ -86,6 +90,16 @@ static struct cag_option options[] = {
     .access_name    = "color",
     .value_name     = NULL,
     .description    = "Color Mode" },
+  { .identifier     = 'p',
+    .access_letters = "p",
+    .access_name    = "palette",
+    .value_name     = "PALETTE",
+    .description    = "Palette" },
+  { .identifier     = 'f',
+    .access_letters = "f",
+    .access_name    = "file",
+    .value_name     = "FILE",
+    .description    = "Palette File" },
   { .identifier     = 'h',
     .access_letters = "h",
     .access_name    = "help",
