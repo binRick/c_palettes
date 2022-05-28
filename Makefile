@@ -1,4 +1,3 @@
-
 default: all
 ##############################################################
 PASSH=$(shell command -v passh)
@@ -22,12 +21,15 @@ VENDOR_DIR=$(DIR)/vendor
 DEPS_DIR=$(DIR)/deps
 BUILD_DIR=$(DIR)/build
 ETC_DIR=$(DIR)/etc
+MENU_DIR=$(DIR)/menu
 DOCKER_DIR=$(DIR)/docker
 LIST_DIR=$(DIR)/list
 ##############################################################
 TIDIED_FILES = \
 			   $(LIST_DIR)/*.h \
-			   $(LIST_DIR)/*.c
+			   $(LIST_DIR)/*.c \
+			   $(MENU_DIR)/*.c \
+			   $(MENU_DIR)/*.h
 ##############################################################
 CD_LOADER = cd $(LOADER_DIR)
 CD_PROJECT = cd $(PROJECT_DIR)

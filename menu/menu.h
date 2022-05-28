@@ -29,25 +29,29 @@
 #include "../submodules/rgba/src/rgba.h"
 #include "../submodules/timestamp/timestamp.h"
 #include "../subprojects/parson/parson.h"
-#include "../vendor/ansicodes/ansicodes.h"
-#include "../vendor/ansicodes/rgbansi.h"
+//#include "../vendor/ansicodes/ansicodes.h"
+#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "../submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
+#include "../submodules/c_ansi/ansi-utils/ansi-utils.h"
+
+///##include "../vendor/ansicodes/rgbansi.h"
 //#include "../submodules/c_embed/loader/include/embeds.h"
 
-#define RENDER_COLOR_OUTPUT    false
-#define RENDER_PRETTY_JSON     true
-#define DEFAULT_COUNT          10
-#define DEFAULT_VERBOSE        false
-#define DEFAULT_JSON_MODE      false
-#define DEFAULT_PRETTY         false
-#define DEFAULT_COLOR          false
-#define DEFAULT_MODE           "names"
-#define DEFAULT_PALETTE_NAME        "vscode"
-#define DEFAULT_PALETTE_FILE        "./kfc/dark/vscode"
-#define C256_FG_CODE           "\x1b[38;5;%dm"
-#define C256_BG_CODE           "\x1b[48;5;%dm"
-#define TRUECOLOR_FG_CODE      "\x1b[38;2;%d;%d;%dm"
-#define TRUECOLOR_BG_CODE      "\x1b[48;2;%d;%d;%dm"
-#define RESET_CODE             "\x1b[0m"
+#define RENDER_COLOR_OUTPUT     false
+#define RENDER_PRETTY_JSON      true
+#define DEFAULT_COUNT           10
+#define DEFAULT_VERBOSE         false
+#define DEFAULT_JSON_MODE       false
+#define DEFAULT_PRETTY          false
+#define DEFAULT_COLOR           false
+#define DEFAULT_MODE            "names"
+#define DEFAULT_PALETTE_NAME    "vscode"
+#define DEFAULT_PALETTE_FILE    "./kfc/dark/vscode"
+#define C256_FG_CODE            "\x1b[38;5;%dm"
+#define C256_BG_CODE            "\x1b[48;5;%dm"
+#define TRUECOLOR_FG_CODE       "\x1b[38;2;%d;%d;%dm"
+#define TRUECOLOR_BG_CODE       "\x1b[48;2;%d;%d;%dm"
+#define RESET_CODE              "\x1b[0m"
 
 int parse_args(int argc, char *argv[]);
 int debug_args();

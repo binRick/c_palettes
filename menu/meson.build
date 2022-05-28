@@ -13,13 +13,16 @@ list_deps = [
      parson_shared_dep,
      cstringfn_dep,
      fs_dep,
-     ansicodes_dep,
+     #ansicodes_dep,
      rgba_dep, 
      cargs_dep,
      c_timer_dep,
      c_fsio_dep,
      embedded_palettes_dep,
      termpaint_dep,
+     ansi_codes_dep,
+     ansi_utils_dep,
+     ansi_rgb_utils_dep,
 ]
 if get_option('enable-binaries')
   list_exec = executable('menu',

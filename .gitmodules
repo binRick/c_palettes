@@ -64,3 +64,6 @@
 [submodule "submodules/c_timer"]
 	path = submodules/c_timer
 	url = https://github.com/binRick/c_timer
+[submodule "submodules/c_ansi"]
+	path = submodules/c_ansi
+	url = https://github.com/binRick/c_ansi

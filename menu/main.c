@@ -1,7 +1,7 @@
-#include "menu.h"
 #include "menu.c"
+#include "menu.h"
 
-args_t              args = {
+args_t args = {
   DEFAULT_MODE,
   DEFAULT_VERBOSE,
   DEFAULT_COUNT,
@@ -10,6 +10,8 @@ args_t              args = {
   DEFAULT_PALETTE_NAME,
   DEFAULT_PALETTE_FILE,
 };
+
+
 int debug_args(){
   fprintf(stderr,
           acs(AC_BRIGHT_BLUE_BLACK AC_ITALIC  "Verbose: %d")
@@ -25,18 +27,20 @@ int debug_args(){
           ansistr(AC_RESETALL AC_UNDERLINE "Palette: %s")
           "\n"
           ansistr(AC_RESETALL AC_UNDERLINE "File: %s")
-          "\n"
-          , args.verbose, args.mode, args.count
-          , args.pretty, args.color
-          , args.palette, args.file
+          "\n",
+          args.verbose, args.mode, args.count,
+          args.pretty, args.color,
+          args.palette, args.file
           );
   return(EXIT_SUCCESS);
 }
 
+
 int parse_args(int argc, char *argv[]){
   char               identifier;
   const char         *value;
-cag_option_context context;
+  cag_option_context context;
+
   cag_option_prepare(&context, options, CAG_ARRAY_SIZE(options), argc, argv);
   while (cag_option_fetch(&context)) {
     identifier = cag_option_get(&context);
@@ -50,7 +54,7 @@ cag_option_context context;
       args.file = value;
       break;
     case 'p':
-      value     = cag_option_get_value(&context);
+      value        = cag_option_get_value(&context);
       args.palette = value;
       break;
     case 'P':
@@ -81,12 +85,12 @@ cag_option_context context;
 
 
 int main(int argc, char **argv) {
-
   if ((argc >= 2) && (strcmp(argv[1], "--test") == 0)) {
     printf("Test OK\n"); return(0);
   }
 
-return(menu_main(argc,argv));
+  return(menu_main(argc, argv));
+
   printf(AC_RESETALL AC_RED "No mode selected: %s\n" AC_RESETALL, args.mode);
   return(1);
 
