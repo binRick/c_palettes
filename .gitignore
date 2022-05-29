@@ -13,3 +13,6 @@ loader/meson/*
 embed/meson/*
 tmp/
 *unc-backup*
+subprojects/*/*
+subprojects/*/
+etc/palettes.sqlite

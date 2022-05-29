@@ -9,6 +9,7 @@ BLINE=$(shell command -v bline)
 UNCRUSTIFY=$(shell command -v uncrustify)
 PWD=$(shell command -v pwd)
 FIND=$(shell command -v find)
+EMBED_BINARY=$(shell command -v embed)
 ##############################################################
 DIR=$(shell $(PWD))
 M1_DIR=$(DIR)
@@ -24,16 +25,20 @@ ETC_DIR=$(DIR)/etc
 MENU_DIR=$(DIR)/menu
 DOCKER_DIR=$(DIR)/docker
 LIST_DIR=$(DIR)/list
+PALETTES_UTILS_DIR=$(DIR)/palette-utils
+
 ##############################################################
 TIDIED_FILES = \
 			   $(LIST_DIR)/*.h \
 			   $(LIST_DIR)/*.c \
 			   $(MENU_DIR)/*.c \
-			   $(MENU_DIR)/*.h
+			   $(MENU_DIR)/*.h \
+			   palette*/*.c palette*/*.h
 ##############################################################
 CD_LOADER = cd $(LOADER_DIR)
 CD_PROJECT = cd $(PROJECT_DIR)
 CD_M1 = cd $(M1_DIR)
+CD_PALETTE_UTILS_DIR = cd palette-utils
 ##############################################################
 EMBEDDED_PALETTES_DIR = $(EMBEDS_DIR)
 EMBEDDED_PALETTES_FILE = $(EMBEDDED_PALETTES_DIR)/tbl1.c
@@ -51,20 +56,31 @@ r:
 	@echo $(RANDOM_PALETTE_NAME)
 
 embed-palettes: dirs-embeds
-	@cd $(ETC_DIR)/palettes && sh -c '~/repos/c_embed/embed/build/embed -o $(EMBEDDED_PALETTES_FILE) -z -t embedded_palettes_table `$(FIND_PALETTES_CMD)`'
+	@cd $(ETC_DIR)/palettes && sh -c '$(EMBED_BINARY) -o $(EMBEDDED_PALETTES_FILE) -z -t embedded_palettes_table `$(FIND_PALETTES_CMD)`'
 
-do-list-build: do-list-meson
-	@eval $(CD_M1) && { ninja -C build; }
+do-palette-utils-meson: 
+	@eval cd . && {  meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }; }
+do-palette-utils-build:
+	@eval cd . && { ninja -C build; }
+	@eval cd . && { ninja test -C build -v; }
 
-	@eval $(CD_M1) && { ninja test -C build -v; }
+do-palette-utils: do-palette-utils-meson do-palette-utils-build
 
 do-list-meson: 
 	@eval $(CD_M1) && { meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }; }
+do-list-build: do-list-meson
+	@eval $(CD_M1) && { ninja -C build; }
+	@eval $(CD_M1) && { ninja test -C build -v; }
 
 do-list: ensure embed-palettes \
 	do-list-build \
 	do-list-test 
 
+do-palette-utils: ensure embed-palettes \
+	do-palette-utils-build \
+	do-palette-utils-test 
+
+do-palette-utils-test: 
 do-list-test: \
 	do-list-test-base \
 	do-list-test-stats \
@@ -106,11 +122,25 @@ do-list-test-files:
 
 list-test: do-list do-list-test
 
-tests: list-test
+parser-tests:
+	@clear
+	@./build/parser/parser -v --help
+	@./build/parser/parser -v -m args
+	@./build/parser/parser -v -m load
+	@./build/parser/parser -v -m parse
+	@./build/parser/parser -v -m files
+	@./build/parser/parser -v -m names
+	@./build/parser/parser -v -m hash
+	@./build/parser/parser -v -m sync
+	@./build/parser/parser -v -m ids
+	@./build/parser/parser -v -m db
+
+do-parser: parser-tests
+tests: do-build parser-tests
 test: tests
 
-do-build: do-list
-all: list-test
+do-build: do-list do-palette-utils
+all: do-palette-utils do-parser
 
 
 clean: 
@@ -154,6 +184,6 @@ dev-loader:
 	@$(PASSH) -L .nodemon.log $(NODEMON) -w '*/meson.build' --delay 1 -i '*/subprojects' -I  -w 'include/*.h' -w meson.build -w src -w Makefile -w loader/meson.build -w loader/src -w loader/include -i '*/embeds/*' -e tpl,build,sh,c,h,Makefile -x env -- bash -c 'make do-loader||true'
 
 nodemon:
-	@$(PASSH) -L .nodemon.log $(NODEMON) -w . -w '*/meson.build' --delay 1 -i '*/subprojects' -I  -w 'include/*.h' -w meson.build -w src -w Makefile -w loader/meson.build -w loader/src -w loader/include -i '*/embeds/*' -e tpl,build,sh,c,h,Makefile -x env -- bash -c 'make test||true'
+	@$(PASSH) -L .nodemon.log $(NODEMON) -w . -w '*/meson.build' --delay 1 -i '*/subprojects' -I  -w 'include/*.h' -w meson.build -w src -w Makefile -w loader/meson.build -w loader/src -w loader/include -i '*/embeds/*' -e tpl,build,sh,c,h,Makefile -x env -- bash -c 'make||true'
 
 

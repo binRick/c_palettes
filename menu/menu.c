@@ -16,12 +16,12 @@ void cycle_cursor_visiblity();
 void cycle_cursor_blink();
 void update_cursor_profile();
 
-char *debug = NULL;
+char *debug     = NULL;
 bool debug_used = false;
 bool quit;
 
-int cursor_x = 0;
-int cursor_y = 1;
+int  cursor_x = 0;
+int  cursor_y = 1;
 typedef struct CURSOR_PROFILE {
   int  x;
   int  y;
@@ -36,14 +36,17 @@ typedef struct event_ {
   struct event_ *next;
 } event;
 event *event_current;
+
+
 static int min(int a, int b) {
-    return (a < b) ? a : b;
+  return((a < b) ? a : b);
 }
-enum cell_t { DEAD, ALIVE };
+enum cell_t { DEAD,
+              ALIVE };
 typedef struct board_t_ {
-    int width;
-    int height;
-    char *cells;
+  int  width;
+  int  height;
+  char *cells;
 } board_t;
 board_t board;
 
@@ -64,27 +67,31 @@ volatile char MSG[1024];
                                termpaint_terminal_flush(terminal, false);                                         \
                              } while (0); }
 
+
 void debug_log(termpaint_integration *integration, const char *data, int length) {
-    (void)integration;
-    if (debug_used && !debug) return; // memory allocaton failure
+  (void)integration;
+  if (debug_used && !debug) {
+    return;                           // memory allocaton failure
+  }
+  if (debug) {
+    const int oldlen     = strlen(debug);
+    char      *debug_old = debug;
+    debug = realloc(debug, oldlen + length + 1);
     if (debug) {
-        const int oldlen = strlen(debug);
-        char* debug_old = debug;
-        debug = realloc(debug, oldlen + length + 1);
-        if (debug) {
-            memcpy(debug + oldlen, data, length);
-            debug[oldlen + length] = 0;
-        } else {
-            free(debug_old);
-        }
+      memcpy(debug + oldlen, data, length);
+      debug[oldlen + length] = 0;
     } else {
-        debug = strndup(data, length);
+      free(debug_old);
     }
-    debug_used = true;
+  } else {
+    debug = strndup(data, length);
+  }
+  debug_used = true;
 }
 
+
 char *cell_at(board_t *board, int x, int y) {
-    return &board->cells[((board->height + y) % board->height) * board->width + ((board->width + x) % board->width)];
+  return(&board->cells[((board->height + y) % board->height) * board->width + ((board->width + x) % board->width)]);
 }
 
 
@@ -152,13 +159,13 @@ void event_callback(void *userdata, termpaint_event *tp_event) {
     my_event->string   = strdup(tp_event->key.atom);
     my_event->next     = NULL;
   } else if (tp_event->type == TERMPAINT_EV_MOUSE) {
-              if ((tp_event->mouse.action == TERMPAINT_MOUSE_PRESS && tp_event->mouse.button == 0)
-            || tp_event->mouse.action == TERMPAINT_MOUSE_MOVE) {
-                        cursor_x = tp_event->mouse.x;
-                        cursor_y = tp_event->mouse.y;
-   //         char *cell = cell_at(&board, tp_event->mouse.x, tp_event->mouse.y);
-     //       *cell = !*cell;
-  }
+    if (  (tp_event->mouse.action == TERMPAINT_MOUSE_PRESS && tp_event->mouse.button == 0)
+       || tp_event->mouse.action == TERMPAINT_MOUSE_MOVE) {
+      cursor_x = tp_event->mouse.x;
+      cursor_y = tp_event->mouse.y;
+      //         char *cell = cell_at(&board, tp_event->mouse.x, tp_event->mouse.y);
+      //       *cell = !*cell;
+    }
     sprintf(MSG, "mouse event     "
             "button:%d|"
             "action:%d|"
@@ -191,9 +198,9 @@ bool init(void) {
   event_current         = malloc(sizeof(event));
   event_current->next   = NULL;
   event_current->string = NULL;
-  integration = termpaintx_full_integration_setup_terminal_fullscreen("+kbdsigint +kbdsigtstp",
-                                                                      event_callback, NULL,
-                                                                      &terminal);
+  integration           = termpaintx_full_integration_setup_terminal_fullscreen("+kbdsigint +kbdsigtstp",
+                                                                                event_callback, NULL,
+                                                                                &terminal);
   surface = termpaint_terminal_get_surface(terminal);
   termpaint_integration_set_logging_func(integration, debug_log);
 
@@ -290,7 +297,6 @@ void repaint_samples(termpaint_attr *attr_ui, termpaint_attr *attr_sample){
   cursor_profile->x = 11;
   cursor_profile->y = 15;
   update_cursor_profile();
-
 }
 
 
@@ -564,7 +570,7 @@ void rgb_color_menu(termpaint_attr *attr_ui, termpaint_attr *attr_to_change, int
 
 void menu(termpaint_attr *attr_ui, termpaint_attr *attr_sample) {
   bool sample = true;
-  bool reset = true;
+  bool reset  = true;
 
   while (!quit) {
     if (reset) {

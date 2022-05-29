@@ -67,3 +67,24 @@
 [submodule "submodules/c_ansi"]
 	path = submodules/c_ansi
 	url = https://github.com/binRick/c_ansi
+[submodule "submodules/kitty-themes"]
+	path = submodules/kitty-themes
+	url = https://github.com/dexpota/kitty-themes
+[submodule "submodules/iTerm2-Color-Schemes"]
+	path = submodules/iTerm2-Color-Schemes
+	url = https://github.com/mbadolato/iTerm2-Color-Schemes
+[submodule "submodules/themes/kovidgoyal/kitty-themes"]
+	path = submodules/themes/kovidgoyal/kitty-themes
+	url = https://github.com/kovidgoyal/kitty-themes
+[submodule "submodules/themes/mbadolato/iTerm2-Color-Schemes"]
+	path = submodules/themes/mbadolato/iTerm2-Color-Schemes
+	url = https://github.com/mbadolato/iTerm2-Color-Schemes
+[submodule "submodules/themes/dexpota/kitty-themes"]
+	path = submodules/themes/dexpota/kitty-themes
+	url = https://github.com/dexpota/kitty-themes
+[submodule "submodules/themes/rajasegar/alacritty-themes"]
+	path = submodules/themes/rajasegar/alacritty-themes
+	url = https://github.com/rajasegar/alacritty-themes
+[submodule "submodules/parson"]
+	path = submodules/parson
+	url = https://github.com/kgabis/parson

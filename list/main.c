@@ -15,9 +15,10 @@
 #define DEBUG_ARGS                                      false
 #define DEBUG_PARSED_ARGS                               false
 /////////////////////////////////////////////////////////////////////////////////////////////
-struct djbhash_node *EMBEDDED_PALETTES_TABLE_ITEM;
-struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
-args_t              args = {
+#include "../palette-utils/palette-utils.h"
+//struct djbhash_node *EMBEDDED_PALETTES_TABLE_ITEM;
+//struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
+args_t args = {
   DEFAULT_MODE,
   DEFAULT_VERBOSE,
   DEFAULT_COUNT,
@@ -467,56 +468,56 @@ char *normalize_palette_filename(char *FILENAME){
   return(FILENAME);
 }
 
-
-int load_palettes_hash(){
-  djbhash_init(&EMBEDDED_PALETTES_TABLE_HASH);
-  djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
-  EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
-  char *FILENAME;
-
-  for (int i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
-    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
-      continue;
-    }
-    FILENAME = strdup(EMBEDDED_PALETTES_TABLE_NAME[i].filename);
-    djbhash_set(
-      &EMBEDDED_PALETTES_TABLE_HASH,
-      FILENAME,
-      &EMBEDDED_PALETTES_TABLE_NAME[i],
-      DJBHASH_OTHER
-      );
-    free(FILENAME);
-  }
-
-
-  djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
-  EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
-  for (int i = 0; EMBEDDED_PALETTES_TABLE_ITEM; i++) {
-    if (EMBEDDED_PALETTES_TABLE_DEBUG) {
-      char *msg = malloc(4096);
-      sprintf(msg,
-              AC_YELLOW_BLACK AC_REVERSED "#%d" AC_RESETALL
-              "> "
-              "|"
-              "size:"
-              AC_BLUE_BLACK AC_REVERSED "%lu" AC_RESETALL
-              "|"
-              "filename:"
-              AC_RESETALL AC_REVERSED AC_RED_BLACK "%s" AC_RESETALL
-              "|"
-              "\n",
-              i,
-              ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->size,
-              __basename(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename)
-              );
-      fprintf(stderr, "%s" AC_RESETALL, msg);
-      free(msg);
-    }
-    EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
-  }
-  djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
-  return(EXIT_SUCCESS);
-} /* load_palettes_hash */
+/*
+ * int load_palettes_hash(){
+ * djbhash_init(&EMBEDDED_PALETTES_TABLE_HASH);
+ * djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
+ * EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
+ * char *FILENAME;
+ *
+ * for (int i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
+ *  if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
+ *    continue;
+ *  }
+ *  FILENAME = strdup(EMBEDDED_PALETTES_TABLE_NAME[i].filename);
+ *  djbhash_set(
+ *    &EMBEDDED_PALETTES_TABLE_HASH,
+ *    FILENAME,
+ *    &EMBEDDED_PALETTES_TABLE_NAME[i],
+ *    DJBHASH_OTHER
+ *    );
+ *  free(FILENAME);
+ * }
+ *
+ *
+ * djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
+ * EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
+ * for (int i = 0; EMBEDDED_PALETTES_TABLE_ITEM; i++) {
+ *  if (EMBEDDED_PALETTES_TABLE_DEBUG) {
+ *    char *msg = malloc(4096);
+ *    sprintf(msg,
+ *            AC_YELLOW_BLACK AC_REVERSED "#%d" AC_RESETALL
+ *            "> "
+ *            "|"
+ *            "size:"
+ *            AC_BLUE_BLACK AC_REVERSED "%lu" AC_RESETALL
+ *            "|"
+ *            "filename:"
+ *            AC_RESETALL AC_REVERSED AC_RED_BLACK "%s" AC_RESETALL
+ *            "|"
+ *            "\n",
+ *            i,
+ *            ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->size,
+ *            __basename(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename)
+ *            );
+ *    fprintf(stderr, "%s" AC_RESETALL, msg);
+ *    free(msg);
+ *  }
+ *  EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
+ * }
+ * djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
+ * return(EXIT_SUCCESS);
+ * } */
 
 
 int parse_args(int argc, char *argv[]){
