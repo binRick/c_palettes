@@ -19,11 +19,20 @@ struct AnsiColors {
   HexColor black[6], red[6], green[6], yellow[6], blue[6], magenta[6], cyan[6], white[6];
 };
 
+enum PALETTE_TYPES {
+  PALETA,
+  KFC,
+};
+
 struct Palette {
   char       Name[32];
   AnsiColors *fgColors, *bgColors;
   HexColor   colors[6], bright[6], cursor[6], border[6];
+  int        Type;
 };
+
+
+int get_palette_data_type(char *PALETTE_DATA);
 
 //typedef Palette (*PaletteParser_t)(char *PALETTE_FILE_PATH);
 //Palette ParsePalette(PaletteParser_t Parser, char *PALETTE_FILE_PATH);
