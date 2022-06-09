@@ -14,7 +14,7 @@
 #include "ansi-codes/ansi-codes.h"
 #include "submodules/c_string_buffer/include/stringbuffer.h"
 #include "submodules/c_stringfn/include/stringfn.h"
-#include "submodules/c_timer/include//c_timer.h"
+#include "submodules/c_timer/include/c_timer.h"
 #include "submodules/djbhash/src/djbhash.h"
 #include "submodules/fs.c/fs.h"
 #include "submodules/generic-print/print.h"
