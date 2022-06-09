@@ -88,3 +88,9 @@
 [submodule "submodules/parson"]
 	path = submodules/parson
 	url = https://github.com/kgabis/parson
+[submodule "submodules/tempdir.c"]
+	path = submodules/tempdir.c
+	url = https://github.com/stephenmathieson/tempdir.c
+[submodule "submodules/libyaml"]
+	path = submodules/libyaml
+	url = https://github.com/yaml/libyaml

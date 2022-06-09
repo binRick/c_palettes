@@ -31,30 +31,26 @@ cc = meson.get_compiler('c')
 #//***********************************************************/
 sh = find_program('sh', required : true)
 pwd_bin = find_program('pwd', required : true)
-inc = include_directories()
+inc = include_directories(
+  'db/',
+)
 #//***********************************************************/
+cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
+termpaint_dep = dependency('termpaint', required: true)
 parson_shared_dep = dependency('parson',fallback:['parson', 'parson_shared_dep'])
+#//////////////////////////////////////////////////////////////////////
 subdir('submodules/c_ansi/ansi-codes')
 subdir('submodules/c_ansi/ansi-rgb-utils')
 subdir('submodules/c_ansi/ansi-utils')
+subdir('submodules/c_ansi/term-utils')
+subdir('submodules/c_ansi/term-termpaint')
+#//////////////////////////////////////////////////////////////////////
 subdir('meson/deps')
 subdir('meson/deps/embedded_palettes')
-
-
-cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
-termpaint_dep = dependency('termpaint', required: true)
-#spng_dep = dependency('libspng',fallback:['libspng', 'spng_dep'])
-#c_colors_dep = dependency('c_colors',fallback:['c_colors', 'c_colors_dep'])
-parson_shared_dep = dependency('parson',fallback:['parson', 'parson_shared_dep'])
-
-
-
-
-
-
+subdir('meson/deps/libyaml')
+subdir('yaml-dumper')
 subdir('db')
 subdir('palette-utils')
 subdir('palettes')
-#subdir('list')
 subdir('menu')
 subdir('parser')

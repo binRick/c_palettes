@@ -16,3 +16,5 @@ tmp/
 subprojects/*/*
 subprojects/*/
 etc/palettes.sqlite
+etc/test-theme.json
+.venv

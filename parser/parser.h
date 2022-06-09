@@ -11,14 +11,14 @@
 #include <stdio.h>
 #include <string.h>
 #define PALETTES_DB_PATH "etc/palettes.sqlite"
-#include "../db/db.h"
-#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
-#include "../subprojects/cargs/include/cargs.h"
-#include "../submodules/c_fsio/include/fsio.h"
-#include "../submodules/c_string_buffer/include/stringbuffer.h"
-#include "../palette-utils/palette-utils.h"
-#include "../submodules/rgba/src/rgba.h"
-#include "../palettes/palettes.h"
+#include "db/db.h"
+#include "submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "subprojects/cargs/include/cargs.h"
+#include "submodules/c_fsio/include/fsio.h"
+#include "submodules/c_string_buffer/include/stringbuffer.h"
+#include "palette-utils/palette-utils.h"
+#include "submodules/rgba/src/rgba.h"
+#include "palettes/palettes.h"
 
 
 int parse_args(int, char **);

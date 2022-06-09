@@ -33,7 +33,6 @@ int main(int argc, char **argv) {
   struct StringFNStrings Files = get_palette_files();
   struct StringFNStrings Names = get_palette_names();
 
-
   if ((strcmp(args.mode, "files") == 0)) {
       printf("Loaded %d Files\n", Files.count);
       for(int i=0;i<args.count;i++)
@@ -94,7 +93,7 @@ int main(int argc, char **argv) {
       }
       return(0);
   }else if ((strcmp(args.mode, "db") == 0)) {
-      printf("Querying DB\n", args.count);
+      printf("Querying DB\n");
       return(db_list_ids(DB));
   }
 
@@ -151,7 +150,7 @@ int parse_args(int argc, char **argv){
       args.count = atoi(value);
       break;
     case 'h':
-      fprintf(stderr, AC_RESETALL AC_YELLOW AC_BOLD "Usage: hex-png-pixel-creator [OPTION]\n" AC_RESETALL);
+      fprintf(stderr, AC_RESETALL AC_YELLOW AC_BOLD "Usage: parser [OPTION]\n" AC_RESETALL);
       cag_option_print(options, CAG_ARRAY_SIZE(options), stdout);
       exit(EXIT_SUCCESS);
     }

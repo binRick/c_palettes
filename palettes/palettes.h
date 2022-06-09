@@ -22,7 +22,7 @@ struct AnsiColors {
 struct Palette {
   char       Name[32];
   AnsiColors *fgColors, *bgColors;
-  HexColor   fg[6], bg[6], cursor[6], border[6];
+  HexColor   colors[6], bright[6], cursor[6], border[6];
 };
 
 //typedef Palette (*PaletteParser_t)(char *PALETTE_FILE_PATH);

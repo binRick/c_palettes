@@ -27,5 +27,6 @@ int main(int argc, char **argv) {
     //return(lph());
     return(load_palettes_hash());
   }
+  return(1);
 }
 

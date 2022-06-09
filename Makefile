@@ -10,6 +10,7 @@ UNCRUSTIFY=$(shell command -v uncrustify)
 PWD=$(shell command -v pwd)
 FIND=$(shell command -v find)
 EMBED_BINARY=$(shell command -v embed)
+JQ_BIN=$(shell command -v jq)
 ##############################################################
 DIR=$(shell $(PWD))
 M1_DIR=$(DIR)
@@ -25,8 +26,17 @@ ETC_DIR=$(DIR)/etc
 MENU_DIR=$(DIR)/menu
 DOCKER_DIR=$(DIR)/docker
 LIST_DIR=$(DIR)/list
+SOURCE_VENV_CMD=$(DIR)/scripts
 PALETTES_UTILS_DIR=$(DIR)/palette-utils
-
+VENV_DIR=$(DIR)/.venv
+ETC_THEMES_DIR=$(ETC_DIR)/themes
+SCRIPTS_DIR=$(DIR)/scripts
+YAML2JSON_BIN=$(VENV_DIR)/bin/yaml2json
+TEST_THEME_YAML_FILE=$(ETC_DIR)/test-theme.yaml
+TEST_THEME_JSON_FILE=$(ETC_DIR)/test-theme.json
+SOURCE_VENV_CMD = source $(VENV_DIR)/bin/activate
+NORMALIZE_KITTY_THEME_CMD = $(SCRIPTS_DIR)/normalize_kitty_theme.sh
+NORMALIZED_THEMES_DIR = $(ETC_DIR)/normalized-themes
 ##############################################################
 TIDIED_FILES = \
 			   $(LIST_DIR)/*.h \
@@ -49,8 +59,41 @@ RANDOM_PALETTE_FILE = $(shell $(FIND_PALETTES_CMD)|shuf|head -n1|gsed 's|^./||'g
 RANDOM_PALETA_PALETTE_FILE = $(shell $(FIND_PALETTES_CMD)|grep ^paleta/|shuf|head -n1|gsed 's|^./||'g)
 RANDOM_PALETTE_NAME = $(shell basename $(RANDOM_PALETTE_FILE))
 RANDOM_PALETA_PALETTE_NAME = $(shell basename $(RANDOM_PALETA_PALETTE_FILE))
-
 ##############################################################
+all: embed-palettes yaml2json setup-etc-themes do-palette-utils do-parser
+
+setup-etc-themes:
+	@[[ -d $(ETC_THEMES_DIR) ]] || mkdir -p "$(ETC_THEMES_DIR)"
+	@[[ -d $(NORMALIZED_THEMES_DIR) ]] || mkdir -p "$(NORMALIZED_THEMES_DIR)"
+	@true
+
+
+kovidgoyal_kitty-themes-normalize: \
+	kovidgoyal_kitty-themes-files-setup \
+	kovidgoyal_kitty-themes-files-copy-etc 
+
+#kovidgoyal_kitty-themes:
+#	@make kovidgoyal_kitty-themes-files-setup && make kovidgoyal_kitty-themes-files-ls | ./scripts/normalize_kitty_theme.sh etc/normalized-themes/kovindgoyal
+
+kovidgoyal_kitty-themes-files-copy-etc: 
+	@find $(ETC_THEMES_DIR)/kovidgoyal -type f -name "*.conf"
+
+kovidgoyal_kitty-themes-files-ls: setup-etc-themes kovidgoyal_kitty-themes-files-setup
+	@find submodules/themes/kovidgoyal/kitty-themes/themes -type f -name "*.conf"
+
+
+kovidgoyal_kitty-themes-files-setup: setup-etc-themes
+	@[[ -d $(NORMALIZED_THEMES_DIR)/kovidgoyal ]] || mkdir -p $(NORMALIZED_THEMES_DIR)/kovindgoyal
+	@true
+
+
+
+
+
+#cat submodules/themes/kovidgoyal/kitty-themes/themes/zenburned.conf|grep -v '^#'|tr -s ' '|tr ' ' '='|grep -v '^$'
+#cat submodules/themes/rajasegar/alacritty-themes/themes/vscode.dark.yml|yaml2json | jq '.colors'    
+#cat submodules/themes/mbadolato/iTerm2-Color-Schemes/kitty/synthwave.conf|grep -v '^#'|tr -s ' '|tr ' ' '
+#cat submodules/themes/dexpota/kitty-themes/themes/snazzy.conf|grep -v '^#'|tr -s ' '|tr ' ' '='|grep -v '^$'
 r:
 	@echo $(RANDOM_PALETTE_FILE)
 	@echo $(RANDOM_PALETTE_NAME)
@@ -123,8 +166,10 @@ do-list-test-files:
 list-test: do-list do-list-test
 
 parser-tests:
-	@clear
 	@./build/parser/parser -v --help
+
+extended-parser-tests: parser-tests
+	@clear
 	@./build/parser/parser -v -m args
 	@./build/parser/parser -v -m load
 	@./build/parser/parser -v -m parse
@@ -135,16 +180,33 @@ parser-tests:
 	@./build/parser/parser -v -m ids
 	@./build/parser/parser -v -m db
 
+yaml2json: python-venv python-venv-yaml2json test-yaml2json
+
+test-yaml2json:
+	@$(SOURCE_VENV_CMD) && yaml2json $(TEST_THEME_YAML_FILE) $(TEST_THEME_JSON_FILE)
+	@jq < $(TEST_THEME_JSON_FILE)
+	
+
+python-venv: do-python-venv
+do-python-venv:
+	@[[ -f $(VENV_DIR)/bin/activate ]] ||  { python3 -m venv $(VENV_DIR) && $(SOURCE_VENV_CMD); }
+
+python-venv-yaml2json:
+	@[[ -f $(YAML2JSON_BIN) ]] || { $(SOURCE_VENV_CMD) && pip3 install json2yaml; }
+
+
 do-parser: parser-tests
 tests: do-build parser-tests
 test: tests
 
 do-build: do-list do-palette-utils
-all: do-palette-utils do-parser
-
 
 clean: 
 	@rm -rf $(EMBEDS_DIR) build *.png
+	@rm -rf $(VENV_DIR)
+	@rm -rf $(TEST_THEME_JSON_FILE)
+	@rm -rf $(ETC_THEMES_DIR)
+	@rm -rf $(NORMALIZED_THEMES_DIR)
 
 ensure: dirs-embeds embed-palettes
 
@@ -153,8 +215,6 @@ setup: embed-palettes
 
 dirs-embeds:
 	@mkdir -p $(EMBEDS_DIR)
-
-
 
 uncrustify:
 	@$(UNCRUSTIFY) -c etc/uncrustify.cfg --replace $(TIDIED_FILES) 
