@@ -1,6 +1,6 @@
 #pragma once
-#include "palette-utils/palette-utils.h"
 #include "ansi-codes/ansi-codes.h"
+#include "palette-utils/palette-utils.h"
 #include <ctype.h>
 #include <math.h>
 #include <stdarg.h>

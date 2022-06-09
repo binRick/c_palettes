@@ -179,8 +179,9 @@ int parse_embedded_palettes(){
     EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
     palettes_qty++;
   }
- // ct_set_unit(ct_MILLISECONDS);
+  // ct_set_unit(ct_MILLISECONDS);
   char *parse_embedded_palettes_dur = "";
+
   //ct_stop("");
 
   if (VERBOSE_MODE) {

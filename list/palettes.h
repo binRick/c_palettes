@@ -3,8 +3,8 @@
 #define PALETTES_LIST_H
 #include "embeds/tbl1.c"
 #define MIN_PALETTE_SIZE    32
-#include "palette-utils/palette-utils.h"
 #include "list.h"
+#include "palette-utils/palette-utils.h"
 ////////////////////////////////////////////
 //int load_palettes_hash();
 int parse_embedded_palettes();

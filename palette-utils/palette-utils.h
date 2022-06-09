@@ -12,8 +12,8 @@
 #ifndef ASSERTF_H
 #include "submodules/assertf/assertf.h"
 #endif
-#include "submodules/bytes/bytes.h"
 #include "ansi-codes/ansi-codes.h"
+#include "submodules/bytes/bytes.h"
 #include "submodules/c_string_buffer/include/stringbuffer.h"
 #include "submodules/c_stringfn/include/stringfn.h"
 #include "submodules/c_timer/include/c_timer.h"
