@@ -8,21 +8,21 @@
 #define DEBUG_PALETTE_JSON_CONTENT               false
 #define EMBEDDED_PALETTES_TABLE_DEBUG            false
 #define EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG    false
-#include "../palettes/palettes.h"
-#include "../submodules/assertf/assertf.h"
-#include "../submodules/bytes/bytes.h"
-#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
-#include "../submodules/c_string_buffer/include/stringbuffer.h"
-#include "../submodules/c_stringfn/include/stringfn.h"
-#include "../submodules/c_timer/include//c_timer.h"
-#include "../submodules/djbhash/src/djbhash.h"
-#include "../submodules/fs.c/fs.h"
-#include "../submodules/generic-print/print.h"
-#include "../submodules/ms/ms.h"
-#include "../submodules/rgba/src/rgba.h"
-#include "../submodules/timestamp/timestamp.h"
-#include "../subprojects/parson/parson.h"
-#include "../vendor/ansicodes/rgbansi.h"
+#include "palettes/palettes.h"
+#include "submodules/assertf/assertf.h"
+#include "submodules/bytes/bytes.h"
+#include "submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "submodules/c_string_buffer/include/stringbuffer.h"
+#include "submodules/c_stringfn/include/stringfn.h"
+#include "submodules/c_timer/include//c_timer.h"
+#include "submodules/djbhash/src/djbhash.h"
+#include "submodules/fs.c/fs.h"
+#include "submodules/generic-print/print.h"
+#include "submodules/ms/ms.h"
+#include "submodules/rgba/src/rgba.h"
+#include "submodules/timestamp/timestamp.h"
+#include "subprojects/parson/parson.h"
+#include "vendor/ansicodes/rgbansi.h"
 //////////////////////////////////////////////////////////////////////////////
 int load_palettes_hash();
 int parse_embedded_palettes();
