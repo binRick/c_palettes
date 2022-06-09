@@ -1,7 +1,9 @@
 embedded_palettes_lib = library('embedded_palettes', 
   '../../../embeds/tbl1.c',
   install: false, 
-  dependencies: [], 
+  dependencies: [
+    c_timer_dep,
+  ], 
   include_directories: [
     inc,
     '../../../',
