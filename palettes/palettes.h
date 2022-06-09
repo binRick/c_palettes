@@ -11,31 +11,41 @@
 #include <string.h>
 #include <sys/time.h>
 
+#ifdef HEX_LEN
+#undef HEX_LEN
+#endif
+
+#define HEX_LEN    7
+
 typedef char                HexColor;
 typedef struct AnsiColors   AnsiColors;
 typedef struct Palette      Palette;
 
 struct AnsiColors {
-  HexColor black[6], red[6], green[6], yellow[6], blue[6], magenta[6], cyan[6], white[6];
+  HexColor black[HEX_LEN], red[HEX_LEN], green[HEX_LEN], yellow[HEX_LEN], blue[HEX_LEN], magenta[HEX_LEN], cyan[HEX_LEN], white[HEX_LEN];
 };
 
 enum PALETTE_TYPES {
-  PALETA,
-  KFC,
+  PALETTE_TYPE_PALETA,
+  PALETTE_TYPE_KFC,
 };
+
 
 struct Palette {
   char       Name[32];
+  bool       Parsed;
+  char       *TypeName;
   AnsiColors *fgColors, *bgColors;
-  HexColor   colors[6], bright[6], cursor[6], border[6];
+  HexColor   colors[HEX_LEN], bright[HEX_LEN], cursor[HEX_LEN], border[HEX_LEN], bg[HEX_LEN], fg[HEX_LEN];
   int        Type;
 };
 
-
-int get_palette_data_type(char *PALETTE_DATA);
-
 //typedef Palette (*PaletteParser_t)(char *PALETTE_FILE_PATH);
 //Palette ParsePalette(PaletteParser_t Parser, char *PALETTE_FILE_PATH);
+
+struct Palette get_palette(char *PALETTE_DATA);
+int get_palette_data_type(char *PALETTE_DATA);
+char *get_palette_data_type_name(char *PALETTE_DATA);
 
 
 #define APPLY_PALETTE_COLORS    "printf \"\
