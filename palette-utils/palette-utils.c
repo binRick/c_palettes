@@ -38,7 +38,7 @@ static char *__basename(const char *path){
 
 
 int parse_embedded_palettes(){
-  ct_start(NULL);
+  //ct_start(NULL);
   int         i = 0; EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   uint32_t    r;
   JSON_Value  *o;
@@ -179,8 +179,9 @@ int parse_embedded_palettes(){
     EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
     palettes_qty++;
   }
-  ct_set_unit(ct_MILLISECONDS);
-  char *parse_embedded_palettes_dur = ct_stop("");
+ // ct_set_unit(ct_MILLISECONDS);
+  char *parse_embedded_palettes_dur = "";
+  //ct_stop("");
 
   if (VERBOSE_MODE) {
     fprintf(stderr,
