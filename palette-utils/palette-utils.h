@@ -17,7 +17,9 @@
 #include "submodules/c_timer/include/c_timer.h"
 #include "submodules/djbhash/src/djbhash.h"
 #include "submodules/fs.c/fs.h"
+#ifndef PRINT_H
 #include "submodules/generic-print/print.h"
+#endif
 #include "submodules/ms/ms.h"
 #include "submodules/rgba/src/rgba.h"
 #include "submodules/timestamp/timestamp.h"
