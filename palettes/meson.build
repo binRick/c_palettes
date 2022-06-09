@@ -5,7 +5,7 @@ palettes_srcs = [
 palettes_deps = [
      embedded_palettes_dep,
      djbhash_dep,
-     palette_utils_dep,
+     #     palette_utils_dep,
 ]
 palettes_lib = static_library('palettes',
     palettes_srcs,
