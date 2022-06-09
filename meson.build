@@ -33,6 +33,8 @@ sh = find_program('sh', required : true)
 pwd_bin = find_program('pwd', required : true)
 inc = include_directories(
   'db/',
+  '.',
+  'embeds/',
 )
 #//***********************************************************/
 cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
