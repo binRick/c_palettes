@@ -2,6 +2,7 @@ palette_utils_srcs = [
   'palette-utils.c',
 ]
 palette_utils_deps = [
+  c_timer_dep,
   ms_dep,
   bytes_dep,
   c_embed_dep,
@@ -17,7 +18,6 @@ palette_utils_deps = [
   ansi_rgb_utils_dep,
   rgba_dep,
   cargs_dep,
-  c_timer_dep,
   c_fsio_dep,
   embedded_palettes_dep,
 ]
