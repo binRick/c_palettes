@@ -32,8 +32,11 @@ cc = meson.get_compiler('c')
 sh = find_program('sh', required : true)
 pwd_bin = find_program('pwd', required : true)
 inc = include_directories(
+  './',
+  '../',
+  '../../',
+  '../../../',
   'db/',
-  '.',
   'embeds/',
   'submodules/',
   'submodules/c_ansi',
