@@ -1,7 +1,9 @@
 #pragma once
 #ifndef PALETTE_UTILS_C
 #define PALETTE_UTILS_C
+#ifndef TBL1_INCLUDED
 #include "embeds/tbl1.c"
+#endif
 #include "palette-utils.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////

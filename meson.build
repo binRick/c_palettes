@@ -35,7 +35,6 @@ inc = include_directories(
   'db/',
   '.',
   'embeds/',
-  'submodules/c_palettes/',
 )
 #//***********************************************************/
 cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
