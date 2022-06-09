@@ -19,6 +19,7 @@ palette_utils_deps = [
   rgba_dep,
   cargs_dep,
   c_fsio_dep,
+  assertf_dep,
   embedded_palettes_dep,
 ]
 
