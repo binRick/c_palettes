@@ -1,4 +1,6 @@
 #include "parser.h"
+
+
 args_t args = {
   DEFAULT_INPUT,
   DEFAULT_OUTPUT_DIR,
@@ -18,7 +20,7 @@ int main(int argc, char **argv) {
   }
 
   int loaded = load_palettes_hash();
-  assert_eq(loaded, 0, %d);
+//  assert_eq(loaded, 0, %d);
 
   if ((strcmp(args.mode, "load") == 0)) {
       return(loaded);
@@ -29,7 +31,7 @@ int main(int argc, char **argv) {
   DB                 = malloc(sizeof(PalettesDB));
   DB->Path           = PALETTES_DB_PATH;
   loaded = init_palettes_db(DB);
-  assert_eq(loaded, 0, %d);
+  //assert_eq(loaded, 0, %d);
   struct StringFNStrings Files = get_palette_files();
   struct StringFNStrings Names = get_palette_names();
 

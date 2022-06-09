@@ -154,7 +154,7 @@ int parse_embedded_palettes(){
       json_object_dotset_string(O, "seq.truecolor.bg", C->truecolor->bg);
       qty++;
       json_string = json_serialize_to_string(o);
-      assert_nonnull(json_string);
+      //assert_nonnull(json_string);
       ////////////////////////////////////////////////////
       if (DEBUG_PALETTE_JSON_CONTENT || DEBUG_PALETTE_PRETTY_JSON_CONTENT) {
         if (DEBUG_PALETTE_CONTENT_COLORS) {
@@ -163,7 +163,7 @@ int parse_embedded_palettes(){
         if (DEBUG_PALETTE_PRETTY_JSON_CONTENT) {
           free(json_string);
           json_string = json_serialize_to_string_pretty(o);
-          assert_nonnull(json_string);
+          //assert_nonnull(json_string);
         }
         if (DEBUG_PALETTE_JSON_CONTENT) {
           fprintf(stdout, "%s\n", json_string);

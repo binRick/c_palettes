@@ -52,7 +52,7 @@ CD_PALETTE_UTILS_DIR = cd palette-utils
 ##############################################################
 EMBEDDED_PALETTES_DIR = $(EMBEDS_DIR)
 EMBEDDED_PALETTES_FILE = $(EMBEDDED_PALETTES_DIR)/tbl1.c
-EMBEDDED_PALETTES_LIMIT = 10000
+EMBEDDED_PALETTES_LIMIT = 5
 FIND_PALETTES_CMD = cd $(ETC_DIR)/palettes && find . -type f|sort -u|shuf|head -n $(EMBEDDED_PALETTES_LIMIT)
 ##################################
 RANDOM_PALETTE_FILE = $(shell $(FIND_PALETTES_CMD)|shuf|head -n1|gsed 's|^./||'g)

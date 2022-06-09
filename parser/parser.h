@@ -10,6 +10,10 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef ASSERTF_H
+//#include "submodules/assertf/assertf.h"
+#endif
+#define ASSERTF_H
 #define PALETTES_DB_PATH "etc/palettes.sqlite"
 #include "db/db.h"
 #include "submodules/c_ansi/ansi-codes/ansi-codes.h"

@@ -2,12 +2,13 @@ parser_srcs = [
   'parser.c',
 ]
 parser_deps = [
+     c_string_buffer_dep,
+     c_fsio_dep,
      cargs_dep,
      parson_shared_dep,
-     c_fsio_dep,
-     palette_utils_dep,
      db_dep,
-     c_string_buffer_dep,
+     palette_utils_dep,
+     #assertf_dep,
 ]
 if get_option('enable-binaries')
   parser_exec = executable('parser',

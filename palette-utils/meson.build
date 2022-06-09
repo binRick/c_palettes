@@ -23,7 +23,7 @@ palette_utils_deps = [
   embedded_palettes_dep,
 ]
 
-palette_utils_lib = library('palette-utils',
+palette_utils_lib = static_library('palette-utils',
   palette_utils_srcs,
   install: false,
   dependencies: palette_utils_deps,

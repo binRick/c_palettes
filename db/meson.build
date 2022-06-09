@@ -3,6 +3,10 @@ db_srcs = [
   'db-mgr.c',
   '../vendor/sqlite3.c',
 ]
+db_inc_dirs = [
+  '../submodules',
+  '../',
+]
 db_deps = [
      cargs_dep,
      cstringfn_dep,
@@ -11,7 +15,7 @@ db_deps = [
      ansi_codes_dep, 
      bytes_dep,
      c_string_buffer_dep,
-     c_timer_dep,
+     #c_timer_dep,
 ]
 sqlite_cflags = [
     '-DSQLITE_OMIT_LOAD_EXTENSION',
@@ -24,11 +28,11 @@ db_lib = static_library('db',
   db_srcs,
   install: false,
   dependencies: db_deps,
-  include_directories: [],
+  include_directories: db_inc_dirs,
   c_args: sqlite_cflags,
 )
 
 db_dep = declare_dependency(
-  include_directories: [],
+  include_directories: db_inc_dirs,
   link_with: db_lib,
 )
