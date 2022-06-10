@@ -31,21 +31,26 @@ cc = meson.get_compiler('c')
 #//***********************************************************/
 sh = find_program('sh', required : true)
 pwd_bin = find_program('pwd', required : true)
+pwd = run_command(pwd_bin, check: true).stdout().strip()
 inc = include_directories(
   './',
-  '../',
-  '../../',
-  '../../../',
   'db/',
   'embeds/',
   'submodules/',
   'submodules/c_ansi',
+  'submodules/c_string_buffer/include',
+  'submodules/c_stringfn/include',
+  'submodules/c_fsio/include',
 )
 #//***********************************************************/
-cargs_dep = dependency('cargs',fallback:['cargs', 'cargs_dep'])
-termpaint_dep = dependency('termpaint', required: true)
-parson_shared_dep = dependency('parson',fallback:['parson', 'parson_shared_dep'])
 #//////////////////////////////////////////////////////////////////////
+subdir('submodules/meson_deps/meson/deps/cargs')
+subdir('submodules/meson_deps/meson/deps/termpaint')
+subdir('submodules/meson_deps/meson/deps/parson')
+subdir('submodules/meson_deps/meson/deps/c_string_buffer')
+subdir('submodules/meson_deps/meson/deps/c_stringfn')
+subdir('submodules/meson_deps/meson/deps/c_fsio')
+subdir('submodules/meson_deps/meson/deps/c_timer')
 subdir('submodules/c_ansi/ansi-codes')
 subdir('submodules/c_ansi/ansi-rgb-utils')
 subdir('submodules/c_ansi/ansi-utils')
@@ -54,7 +59,6 @@ subdir('submodules/c_ansi/term-termpaint')
 #//////////////////////////////////////////////////////////////////////
 subdir('meson/deps')
 subdir('meson/deps/generic_print')
-subdir('meson/deps/c_timer')
 #subdir('meson/deps/assertf')
 subdir('meson/deps/debug_print_h')
 subdir('meson/deps/embedded_palettes')

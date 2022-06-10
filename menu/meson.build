@@ -10,7 +10,7 @@ list_deps = [
      djbhash_dep,
      c_string_buffer_dep,
      timestamp_dep,
-     parson_shared_dep,
+     parson_dep,
      c_stringfn_dep,
      fs_dep,
      #ansicodes_dep,

@@ -5,7 +5,7 @@ parser_deps = [
      c_string_buffer_dep,
      c_fsio_dep,
      cargs_dep,
-     parson_shared_dep,
+     parson_dep,
      db_dep,
      palette_utils_dep,
      #assertf_dep,
