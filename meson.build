@@ -38,19 +38,29 @@ inc = include_directories(
   'embeds/',
   'submodules/',
   'submodules/c_ansi',
+
+  'submodules/meson_deps',
+  'submodules/meson_deps/submodules',
+  'meson/deps/ms',
+  'submodules/c_fsio/include',
   'submodules/c_string_buffer/include',
   'submodules/c_stringfn/include',
-  'submodules/c_fsio/include',
+  'submodules/c_embed',
+  'submodules/debug_print_h',
+  'submodules/generic-print',
+  'submodules/c_timer',
+  'submodules/b64.c',
 )
 #//***********************************************************/
 #//////////////////////////////////////////////////////////////////////
 subdir('submodules/meson_deps/meson/deps/cargs')
+#subdir('submodules/meson_deps/meson/deps/c_timer')
+subdir('submodules/meson_deps/meson/deps/b64')
 subdir('submodules/meson_deps/meson/deps/termpaint')
 subdir('submodules/meson_deps/meson/deps/parson')
 subdir('submodules/meson_deps/meson/deps/c_string_buffer')
 subdir('submodules/meson_deps/meson/deps/c_stringfn')
 subdir('submodules/meson_deps/meson/deps/c_fsio')
-subdir('submodules/meson_deps/meson/deps/c_timer')
 subdir('submodules/c_ansi/ansi-codes')
 subdir('submodules/c_ansi/ansi-rgb-utils')
 subdir('submodules/c_ansi/ansi-utils')
@@ -61,6 +71,7 @@ subdir('meson/deps')
 subdir('meson/deps/generic_print')
 #subdir('meson/deps/assertf')
 subdir('meson/deps/debug_print_h')
+subdir('meson/deps/c_timer')
 subdir('meson/deps/embedded_palettes')
 subdir('meson/deps/libyaml')
 subdir('yaml-dumper')
