@@ -5,6 +5,7 @@
 static const char *PALETTE_TYPE_NAMES[] = {
   "paleta",
   "kfc",
+  "kitty",
   NULL,
 };
 
@@ -17,6 +18,7 @@ char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_
   struct StringFNStrings PALETTE_LINES = stringfn_split_lines_and_trim(PALETTE_DATA);
 
   switch (get_palette_data_type(PALETTE_DATA)) {
+  case PALETTE_TYPE_KITTY:
   case PALETTE_TYPE_PALETA:
     if (strcmp(PROPERTY_NAME, "background")) {
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[0]));
@@ -103,6 +105,8 @@ struct Palette get_palette(char *PALETTE_DATA){
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   sprintf(&P.fg, "%s", (char *)get_palette_property_value("foreground", PALETTE_DATA));
   sprintf(&P.bg, "%s", (char *)get_palette_property_value("background", PALETTE_DATA));
+  sprintf(&P.fgSelection, "%s", (char *)get_palette_property_value("foreground_selection", PALETTE_DATA));
+  sprintf(&P.bgSelection, "%s", (char *)get_palette_property_value("background_selection", PALETTE_DATA));
   sprintf(&P.cursor, "%s", (char *)get_palette_property_value("cursor", PALETTE_DATA));
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   sprintf(&P.fgColors->black, "%s", (char *)get_palette_property_value("color00", PALETTE_DATA));
@@ -129,6 +133,9 @@ struct Palette get_palette(char *PALETTE_DATA){
     P.Parsed = true;
     sprintf(&P.fgColors->black, "kk");
     break;
+  case PALETTE_TYPE_KITTY:
+    P.Parsed = true;
+    break;
   case PALETTE_TYPE_KFC:
     P.Parsed = true;
     break;
@@ -146,7 +153,8 @@ int get_palette_data_type(char *PALETTE_DATA){
   struct StringFNStrings PALETTE_LINES = stringfn_split_lines_and_trim(PALETTE_DATA);
 
   for (int i = 0; i < PALETTE_LINES.count - 1; i++) {
-    struct StringFNStrings LINE_SPLIT = stringfn_split(PALETTE_LINES.strings[i], '=');
+    struct StringFNStrings LINE_SPLIT       = stringfn_split(PALETTE_LINES.strings[i], '=');
+    struct StringFNStrings LINE_SPLIT_SPACE = stringfn_split(PALETTE_LINES.strings[i], ' ');
     if (DEBUG_PALETTE_NAMES) {
       fprintf(stderr,
               AC_RESETALL AC_YELLOW AC_REVERSED "%s\n" AC_RESETALL,
@@ -154,10 +162,13 @@ int get_palette_data_type(char *PALETTE_DATA){
               );
       fprintf(stderr, "%d/%d\n", LINE_SPLIT.count, PALETTE_LINES.count);
     }
-    if (LINE_SPLIT.count == 1) {
+    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 2) {
+      return(PALETTE_TYPE_KITTY);
+    }
+    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 1) {
       return(PALETTE_TYPE_PALETA);
     }
-    if (LINE_SPLIT.count == 2) {
+    if (LINE_SPLIT.count == 2 && LINE_SPLIT_SPACE.count == 1) {
       return(PALETTE_TYPE_KFC);
     }
   }

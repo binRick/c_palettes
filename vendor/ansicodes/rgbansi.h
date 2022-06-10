@@ -82,7 +82,7 @@
 #define COLOR_FG_RGB              L"\033[48;2;%u;%u;%um"
 #define COLOR_RESET_TO_DEFAULT    L"\033[0m"
 /***********************/// HEX COLOR CONSTANTS
-#define HEX_LEN                   6
+#define RGB_HEX_LEN                   6
 static const char *HEX_VALUES = "0123456789ABCDEF";
 /***********************///
 #define LAB_XYZ_SIGMA             (6.0 / 29.0)

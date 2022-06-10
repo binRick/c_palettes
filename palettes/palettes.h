@@ -28,6 +28,7 @@ struct AnsiColors {
 enum PALETTE_TYPES {
   PALETTE_TYPE_PALETA,
   PALETTE_TYPE_KFC,
+  PALETTE_TYPE_KITTY,
 };
 
 
@@ -36,6 +37,7 @@ struct Palette {
   bool       Parsed;
   char       *TypeName;
   AnsiColors *fgColors, *bgColors;
+  HexColor   bgSelection[HEX_LEN], fgSelection[HEX_LEN];
   HexColor   colors[HEX_LEN], bright[HEX_LEN], cursor[HEX_LEN], border[HEX_LEN], bg[HEX_LEN], fg[HEX_LEN];
   int        Type;
 };
