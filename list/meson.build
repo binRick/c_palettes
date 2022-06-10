@@ -12,7 +12,7 @@ list_deps = [
      c_string_buffer_dep,
      timestamp_dep,
      parson_shared_dep,
-     cstringfn_dep,
+     c_stringfn_dep,
      fs_dep,
      ansi_codes_dep,
      ansi_rgb_utils_dep,

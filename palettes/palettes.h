@@ -40,13 +40,10 @@ struct Palette {
   int        Type;
 };
 
-//typedef Palette (*PaletteParser_t)(char *PALETTE_FILE_PATH);
-//Palette ParsePalette(PaletteParser_t Parser, char *PALETTE_FILE_PATH);
-
-struct Palette get_palette(char *PALETTE_DATA);
-int get_palette_data_type(char *PALETTE_DATA);
-char *get_palette_data_type_name(char *PALETTE_DATA);
-
+char *           get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA);
+struct Palette  get_palette(char *PALETTE_DATA);
+int             get_palette_data_type(char *PALETTE_DATA);
+char *           get_palette_data_type_name(char *PALETTE_DATA);
 
 #define APPLY_PALETTE_COLORS    "printf \"\
 \\033]4;0;#$(echo $color00)\\033\\ \

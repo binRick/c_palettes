@@ -9,7 +9,7 @@ db_inc_dirs = [
 ]
 db_deps = [
      cargs_dep,
-     cstringfn_dep,
+     c_stringfn_dep,
      parson_shared_dep,
      fs_dep,
      ansi_codes_dep, 

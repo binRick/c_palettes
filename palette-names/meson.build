@@ -3,7 +3,7 @@ palette_names_srcs = [
 ]
 palette_names_deps = [
   #c_string_buffer_dep,
-  #cstringfn_dep,
+  #c_stringfn_dep,
   #embedded_palettes_dep,
   #djbhash_dep,
   palette_utils_dep,
