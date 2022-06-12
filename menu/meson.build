@@ -4,7 +4,7 @@ list_srcs = [
 list_deps = [
      ms_dep,
      bytes_dep,
-     c_embed_dep,
+     #     c_embed_dep,
      #generic_print_dep,
      #     debug_print_h_dep,
      djbhash_dep,
@@ -18,7 +18,7 @@ list_deps = [
      cargs_dep,
      #c_timer_dep,
      c_fsio_dep,
-     embedded_palettes_dep,
+     #embedded_palettes_dep,
      termpaint_dep,
      ansi_codes_dep,
      ansi_utils_dep,

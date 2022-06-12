@@ -328,7 +328,7 @@ struct StringFNStrings palette_name_files(char *PALETTE_NAME){
   for (int i = 0; i < files.count; i++) {
     if (
       stringfn_equal(PALETTE_NAME, files.strings[i])
-       ||
+      ||
       stringfn_ends_with(files.strings[i], prefix_string("/", PALETTE_NAME))
       ) {
       stringbuffer_append_string(sb, files.strings[i]);
@@ -342,9 +342,9 @@ struct StringFNStrings palette_name_files(char *PALETTE_NAME){
 bool palette_file_exists(char *PALETTE_FILE){
   return(
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE) != NULL)
-        ||
+    ||
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, normalize_palette_filename(PALETTE_FILE)) != NULL)
-        ||
+    ||
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, denormalize_palette_filename(PALETTE_FILE)) != NULL)
     );
 }

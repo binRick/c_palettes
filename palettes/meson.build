@@ -1,11 +1,13 @@
 palettes_srcs = [
   'palettes.c',
-  #  'palette-utils.c',
+  'tn.c',
 ]
 palettes_deps = [
-     embedded_palettes_dep,
-     djbhash_dep,
-     #     palette_utils_dep,
+    parson_dep,
+    djbhash_dep,
+    incbin_dep,
+    #   spng_dep,
+    #hex_png_pixel_utils_dep,
 ]
 palettes_lib = static_library('palettes',
     palettes_srcs,
@@ -15,17 +17,7 @@ palettes_lib = static_library('palettes',
     ],
 )
 palettes_dep = declare_dependency(
-  include_directories: [],
+  include_directories: [inc],
   link_with: palettes_lib,
 )
 
-#palettes_exec = executable('palettes',
-#    palettes_srcs,
-#    dependencies: palettes_deps,
-#    include_directories: [
-#       inc,
-#    ],
-#  )
-#if get_option('enable-binary-tests')
-#    test('palettes', palettes_exec, args: ['--test'])
-#endif

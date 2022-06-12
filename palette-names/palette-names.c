@@ -38,7 +38,7 @@ struct StringFNStrings pn_get_palette_files(){
     EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   }
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
-  return(stringbuffer_to_strings(sb));
+//  return(stringbuffer_to_strings(sb));
 }
 
 

@@ -1,14 +1,51 @@
+#pragma once
+#define INCDIR           "submodules/themes/mbadolato/iTerm2-Color-Schemes/windowsterminal/"
+#define INCBIN_PREFIX    __THEME__
+#include "tn.c"
+//////////////////////////////////////////////
 #include "palettes.h"
+/////////////////////
+#define _STR(X)                 #X
+#define _STRINGIZE(X)           _STR(X)
+#define _CAT(X, Y)              X ## Y
+#define _CONCATENATE(X, Y)      _CAT(X, Y)
+#define _EVAL(X)                X
+#define _JSON_FILENAME(NAME)    INCDIR _STRINGIZE(NAME) ".json"
+///////////////////////////////////////////////////
+#define _INCBIN(NAME) \
+  INCBIN(char, _CONCATENATE(NAME, _json__), _JSON_FILENAME(NAME));
+///////////////////////////////////////////////////
+#define _INCBINS()    \
+_INCBIN(matrix); \
+_INCBIN(Vaughn); \
+_INCBIN(ayu_light); \
+///////////////////////////////////////////////////
+//  for(int i=0;i<EMBEDDED_PALETTE_NAMES_QTY;i++)\
+//     _INCBIN(EMBEDDED_PALETTE_NAMES[i]);\
+///////////////////////////////////////////////////
+_INCBINS();
 //////////////////////////////////////////////
 #define DEBUG_PALETTE_NAMES    false
+#undef _STR
+#undef _STRINGIZE
+#undef _CAT
+#undef _CONCATENATE
+#undef _EVAL
 //////////////////////////////////////////////
-static const char *PALETTE_TYPE_NAMES[] = {
-  "paleta",
-  "kfc",
-  "kitty",
-  NULL,
-};
-
+HexPngWriterConfig gen_hex_write_config(){
+  HexPngWriterConfig CONFIG = {
+    .COLOR = "FFFFFF",
+    .PATH  = "/tmp",
+    .DEBUG = false,
+  };
+  return(CONFIG);
+}
+//////////////////////////////////////////////
+const char *palettes_basename(const char *path){
+  const char *p;
+  p = strrchr(path, '/');
+  return(p != NULL ? p + 1 : path);
+}
 
 //////////////////////////////////////////////
 char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA){
@@ -102,7 +139,6 @@ struct Palette get_palette(char *PALETTE_DATA){
     .bgColors = malloc(sizeof(AnsiColors)),
   };
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
   sprintf(&P.fg, "%s", (char *)get_palette_property_value("foreground", PALETTE_DATA));
   sprintf(&P.bg, "%s", (char *)get_palette_property_value("background", PALETTE_DATA));
   sprintf(&P.fgSelection, "%s", (char *)get_palette_property_value("foreground_selection", PALETTE_DATA));
@@ -131,15 +167,43 @@ struct Palette get_palette(char *PALETTE_DATA){
   switch (get_palette_data_type(PALETTE_DATA)) {
   case PALETTE_TYPE_PALETA:
     P.Parsed = true;
-    sprintf(&P.fgColors->black, "kk");
+    P.Valid  = true;
     break;
   case PALETTE_TYPE_KITTY:
     P.Parsed = true;
+    P.Valid  = true;
     break;
   case PALETTE_TYPE_KFC:
     P.Parsed = true;
+    P.Valid  = true;
     break;
   }
+
+  JSON_Value  *j;
+  JSON_Object *J;
+
+  j = json_value_init_object();
+  J = json_value_get_object(j);
+  struct StringFNStrings LINES = stringfn_split_lines_and_trim(PALETTE_DATA);
+
+  json_object_set_string(J, "name", P.Name);
+  json_object_set_string(J, "data", PALETTE_DATA);
+  json_object_set_boolean(J, "parsed", P.Parsed);
+  json_object_set_boolean(J, "valid", P.Valid);
+  json_object_set_number(J, "size", strlen(PALETTE_DATA));
+  json_object_set_number(J, "lines_qty", LINES.count);
+  sprintf(&P.JSON, "%s", (char *)json_serialize_to_string(j));
+  sprintf(&P.JSON_PRETTY, "%s", (char *)json_serialize_to_string_pretty(j));
+
+  HexPngWriterConfig config = gen_hex_write_config();
+
+//  int r = write_hex_png_to_path(&config);
+// printf("r:%d\n",r);
+
+
+  json_value_free(j);
+  stringfn_release_strings_struct(LINES);
+
   return(P);
 } /* get_palette */
 
@@ -175,3 +239,4 @@ int get_palette_data_type(char *PALETTE_DATA){
   return(-1);
 }
 
+#undef INCBIN_PREFIX

@@ -1,6 +1,10 @@
 #pragma once
-#include "ansi-codes/ansi-codes.h"
 #include "palette-utils/palette-utils.h"
+#include "submodules/meson_deps/submodules/incbin/incbin.h"
+#include "submodules/meson_deps/submodules/parson/parson.h"
+#include "submodules/meson_deps/submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "submodules/meson_deps/submodules/c_colors/hex-png-pixel-utils/hex-png-pixel-utils.h"
+#include "submodules/meson_deps/submodules/c_fsio/include/fsio.h"
 #include <ctype.h>
 #include <math.h>
 #include <stdarg.h>
@@ -10,13 +14,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+const char *palettes_basename(const char *path);
+struct Palette get_palette(char *PALETTE_DATA);
 
-#ifdef HEX_LEN
-#undef HEX_LEN
-#endif
+///////////////////////////////////////////////////
+static const char *PALETTE_TYPE_NAMES[] = {
+  "paleta",
+  "kfc",
+  "kitty",
+};
 
-#define HEX_LEN    7
+static const int  PALETTE_TYPE_NAMES_QTY = sizeof(PALETTE_TYPE_NAMES) / sizeof(*PALETTE_TYPE_NAMES);
 
+#define HEX_LEN       7
+#define JSON_BYTES    1024 * 32
 typedef char                HexColor;
 typedef struct AnsiColors   AnsiColors;
 typedef struct Palette      Palette;
@@ -31,21 +44,21 @@ enum PALETTE_TYPES {
   PALETTE_TYPE_KITTY,
 };
 
-
 struct Palette {
   char       Name[32];
-  bool       Parsed;
+  bool       Parsed, Valid;
+  int        Type, Properties;
   char       *TypeName;
   AnsiColors *fgColors, *bgColors;
   HexColor   bgSelection[HEX_LEN], fgSelection[HEX_LEN];
   HexColor   colors[HEX_LEN], bright[HEX_LEN], cursor[HEX_LEN], border[HEX_LEN], bg[HEX_LEN], fg[HEX_LEN];
-  int        Type;
+  char       JSON[JSON_BYTES], JSON_PRETTY[JSON_BYTES];
 };
 
-char *           get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA);
+char *          get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA);
 struct Palette  get_palette(char *PALETTE_DATA);
 int             get_palette_data_type(char *PALETTE_DATA);
-char *           get_palette_data_type_name(char *PALETTE_DATA);
+char *          get_palette_data_type_name(char *PALETTE_DATA);
 
 #define APPLY_PALETTE_COLORS    "printf \"\
 \\033]4;0;#$(echo $color00)\\033\\ \

@@ -18,3 +18,4 @@ subprojects/*/
 etc/palettes.sqlite
 etc/test-theme.json
 .venv
+etc/themes

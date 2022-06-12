@@ -10,10 +10,6 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef ASSERTF_H
-//#include "submodules/assertf/assertf.h"
-#endif
-#define ASSERTF_H
 #define PALETTES_DB_PATH "etc/palettes.sqlite"
 #include "db/db.h"
 #include "submodules/c_ansi/ansi-codes/ansi-codes.h"
@@ -24,12 +20,11 @@
 #include "submodules/rgba/src/rgba.h"
 #include "palettes/palettes.h"
 
-
 int parse_args(int, char **);
 int debug_args();
 
-#define PARSED_COLORS_JSON_FILE    "etc/parsed-colors.json"
 ////////////////////////////////////////////////////////////////////
+#define PARSED_COLORS_JSON_FILE    "etc/parsed-colors.json"
 #define DEFAULT_INPUT           PARSED_COLORS_JSON_FILE
 #define DEFAULT_OUTPUT_DIR      "etc/images"
 #define DEFAULT_COUNT           5

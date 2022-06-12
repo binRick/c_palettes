@@ -39,11 +39,10 @@ NORMALIZE_KITTY_THEME_CMD = $(SCRIPTS_DIR)/normalize_kitty_theme.sh
 NORMALIZED_THEMES_DIR = $(ETC_DIR)/normalized-themes
 ##############################################################
 TIDIED_FILES = \
-			   $(LIST_DIR)/*.h \
-			   $(LIST_DIR)/*.c \
-			   $(MENU_DIR)/*.c \
-			   $(MENU_DIR)/*.h \
-			   palette*/*.c palette*/*.h
+			   $(LIST_DIR)/*.h $(LIST_DIR)/*.c \
+			   $(MENU_DIR)/*.c $(MENU_DIR)/*.h \
+			   palette*/*.c palette*/*.h \
+			   palettes-test/*.c palettes-test/*.h
 ##############################################################
 CD_LOADER = cd $(LOADER_DIR)
 CD_PROJECT = cd $(PROJECT_DIR)
@@ -52,8 +51,11 @@ CD_PALETTE_UTILS_DIR = cd palette-utils
 ##############################################################
 EMBEDDED_PALETTES_DIR = $(EMBEDS_DIR)
 EMBEDDED_PALETTES_FILE = $(EMBEDDED_PALETTES_DIR)/tbl1.c
-EMBEDDED_PALETTES_LIMIT = 5
+EMBEDDED_PALETTES_LIMIT = 995
+EMBEDDED_THEMES_LIMIT = 995
+EMBEDDED_THEMES_FILE = $(EMBEDDED_PALETTES_DIR)/themes.c
 FIND_PALETTES_CMD = cd $(ETC_DIR)/palettes && find . -type f|sort -u|shuf|head -n $(EMBEDDED_PALETTES_LIMIT)
+FIND_THEMES_CMD = find $(DIR)/submodules/themes/mbadolato/iTerm2-Color-Schemes/alacritty -type f -name "*.yml"|sort -u|shuf|head -n $(EMBEDDED_THEMES_LIMIT)
 ##################################
 RANDOM_PALETTE_FILE = $(shell $(FIND_PALETTES_CMD)|shuf|head -n1|gsed 's|^./||'g)
 RANDOM_PALETA_PALETTE_FILE = $(shell $(FIND_PALETTES_CMD)|grep ^paleta/|shuf|head -n1|gsed 's|^./||'g)
@@ -62,7 +64,7 @@ RANDOM_PALETA_PALETTE_NAME = $(shell basename $(RANDOM_PALETA_PALETTE_FILE))
 ##############################################################
 all: embed-palettes yaml2json setup-etc-themes do-palette-utils do-parser
 
-setup-etc-themes:
+setup-etc-themes: 
 	@[[ -d $(ETC_THEMES_DIR) ]] || mkdir -p "$(ETC_THEMES_DIR)"
 	@[[ -d $(NORMALIZED_THEMES_DIR) ]] || mkdir -p "$(NORMALIZED_THEMES_DIR)"
 	@true
@@ -97,9 +99,28 @@ kovidgoyal_kitty-themes-files-setup: setup-etc-themes
 r:
 	@echo $(RANDOM_PALETTE_FILE)
 	@echo $(RANDOM_PALETTE_NAME)
+mkdirs:
+	@mkdir -p embeds
 
-embed-palettes: dirs-embeds
+embed-palettes: mkdirs setup-etc-themes
 	@cd $(ETC_DIR)/palettes && sh -c '$(EMBED_BINARY) -o $(EMBEDDED_PALETTES_FILE) -z -t embedded_palettes_table `$(FIND_PALETTES_CMD)`'
+
+json-convert-themes: sync-themes setup-etc-themes
+	@true
+
+
+#	@find etc/themes/*.yml -type f -name "*.yml" | while read -r f; do yaml2json < $$f | jq -Mrc | tee etc/themes/`basename $$f .yml`.json; done | pv -l >/dev/null
+
+do-embed-themes: setup-etc-themes
+	@mkdir embeds||true
+
+#	@cd $(ETC_THEMES_DIR) && sh -c '$(EMBED_BINARY) -o $(EMBEDDED_THEMES_FILE) -z -t embedded_themes_table *.json'
+#
+#
+embed-themes: setup-etc-themes sync-themes json-convert-themes do-embed-themes
+sync-themes:	
+	@rsync submodules/themes/mbadolato/iTerm2-Color-Schemes/alacritty/*.yml $(ETC_THEMES_DIR)/.
+	@cd $(ETC_THEMES_DIR) && `for f in *\ *; do mv "$$f" "$${f// /_}"; done`
 
 do-palette-utils-meson: 
 	@eval cd . && {  meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }; }
@@ -201,21 +222,22 @@ test: tests
 
 do-build: do-list do-palette-utils
 
-clean: 
+clean: do-clean
+do-clean: 
 	@rm -rf $(EMBEDS_DIR) build *.png
 	@rm -rf $(VENV_DIR)
 	@rm -rf $(TEST_THEME_JSON_FILE)
 	@rm -rf $(ETC_THEMES_DIR)
 	@rm -rf $(NORMALIZED_THEMES_DIR)
 
-ensure: dirs-embeds embed-palettes
+ensure: \
+	dirs-embeds embed-palettes embed-themes
 
 setup: embed-palettes
 	@clib i
 
 dirs-embeds:
 	@mkdir -p $(EMBEDS_DIR)
-
 uncrustify:
 	@$(UNCRUSTIFY) -c etc/uncrustify.cfg --replace $(TIDIED_FILES) 
 	@shfmt -w scripts/*.sh
@@ -249,5 +271,7 @@ nodemon:
 
 git-pull:
 	@git pull --recurse-submodules
+git-submodules-pull-master:
+	@git submodule foreach git pull origin master --jobs=10
 git-submodules-update:
-	@git submodule update --init --recursive
+	@git submodule update --init

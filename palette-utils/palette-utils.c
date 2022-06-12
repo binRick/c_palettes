@@ -306,9 +306,9 @@ char *normalize_palette_filename(char *FILENAME){
 bool palette_file_exists(char *PALETTE_FILE){
   return(
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE) != NULL)
-        ||
+    ||
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, normalize_palette_filename(PALETTE_FILE)) != NULL)
-        ||
+    ||
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, denormalize_palette_filename(PALETTE_FILE)) != NULL)
     );
 }

@@ -5,7 +5,7 @@ palette_utils_deps = [
   c_timer_dep,
   ms_dep,
   bytes_dep,
-  c_embed_dep,
+  # c_embed_dep,
   generic_print_dep,
   #  debug_print_h_dep,
   djbhash_dep,
@@ -20,7 +20,7 @@ palette_utils_deps = [
   cargs_dep,
   c_fsio_dep,
   #assertf_dep,
-  embedded_palettes_dep,
+  #mbedded_palettes_dep,
 ]
 
 palette_utils_lib = static_library('palette-utils',
