@@ -20,9 +20,6 @@
 #include "submodules/rgba/src/rgba.h"
 #include "palettes/palettes.h"
 
-int parse_args(int, char **);
-int debug_args();
-
 ////////////////////////////////////////////////////////////////////
 #define PARSED_COLORS_JSON_FILE    "etc/parsed-colors.json"
 #define DEFAULT_INPUT           PARSED_COLORS_JSON_FILE

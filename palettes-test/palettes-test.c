@@ -1,3 +1,4 @@
+#define INCBIN_SILENCE_BITCODE_WARNING
 #define INCBIN_PREFIX    __THEME__
 //////////////////
 #include "palettes-test.h"
@@ -25,7 +26,7 @@ extern int EMBEDDED_PALETTE_NAMES_QTY;
 //////////////////////////////
 #define LOADJSON(NAME){do{    \
   SET_NAME_HASH_ITEM(NAME);\
-  fprintf(stderr, "JSON Parsed Props        :%d\n", GET_NAME_JSON_OBJECT_PROPS_QTY(NAME));\
+  fprintf(stderr, "JSON Parsed Props        :%lu\n", GET_NAME_JSON_OBJECT_PROPS_QTY(NAME));\
   fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"name"));\
   fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"background"));\
   fprintf(stderr, "JSON Parsed Green        :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"green"));\
@@ -34,7 +35,7 @@ extern int EMBEDDED_PALETTE_NAMES_QTY;
 #define DEBUG_INCBIN(NAME)                                            \
   fprintf(stderr, "Name:%s\n",             # NAME);                   \
   fprintf(stderr, "Size:%d\n", __THEME__ ## NAME ## _json__ ## Size); \
-  fprintf(stderr, "DATA:%s\n", BIN_DATA(NAME));                       \
+  fprintf(stderr, "DATA:%s\n", (char*)BIN_DATA(NAME));                       \
   LOADJSON(NAME);\
 //////////////////////////////////////////////
 #define LOADBINS()    \

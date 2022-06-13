@@ -8,7 +8,6 @@ parser_deps = [
      parson_dep,
      db_dep,
      palette_utils_dep,
-     #assertf_dep,
 ]
 if get_option('enable-binaries')
   parser_exec = executable('parser',

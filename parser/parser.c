@@ -1,5 +1,8 @@
+#define INCBIN_SILENCE_BITCODE_WARNING
 #include "parser.h"
-
+#include <assert.h>
+int parse_args(int, char **);
+int debug_args();
 
 args_t args = {
   DEFAULT_INPUT,
@@ -20,7 +23,7 @@ int main(int argc, char **argv) {
   }
 
   int loaded = load_palettes_hash();
-//  assert_eq(loaded, 0, %d);
+  assert(loaded == 0);
 
   if ((strcmp(args.mode, "load") == 0)) {
       return(loaded);

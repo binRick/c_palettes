@@ -28,6 +28,9 @@ static const char *PALETTE_TYPE_NAMES[] = {
 
 static const int  PALETTE_TYPE_NAMES_QTY = sizeof(PALETTE_TYPE_NAMES) / sizeof(*PALETTE_TYPE_NAMES);
 
+#ifdef HEX_LEN
+#undef HEX_LEN
+#endif
 #define HEX_LEN       7
 #define JSON_BYTES    1024 * 32
 typedef char                HexColor;

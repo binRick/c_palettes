@@ -1,4 +1,5 @@
 #pragma once
+#define INCBIN_SILENCE_BITCODE_WARNING
 #ifndef PALETTE_UTILS_C
 #define PALETTE_UTILS_C
 #include "embeds/tbl1.c"

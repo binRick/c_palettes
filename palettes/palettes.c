@@ -1,4 +1,5 @@
 #pragma once
+#define INCBIN_SILENCE_BITCODE_WARNING
 #define INCDIR           "submodules/themes/mbadolato/iTerm2-Color-Schemes/windowsterminal/"
 #define INCBIN_PREFIX    __THEME__
 #include "tn.c"
