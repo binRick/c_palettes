@@ -100,7 +100,8 @@ r:
 	@echo $(RANDOM_PALETTE_FILE)
 	@echo $(RANDOM_PALETTE_NAME)
 mkdirs:
-	@mkdir -p embeds
+	@[[ -d embeds ]] || mkdir -p embeds
+	@true
 
 embed-palettes: mkdirs setup-etc-themes
 	@cd $(ETC_DIR)/palettes && sh -c '$(EMBED_BINARY) -o $(EMBEDDED_PALETTES_FILE) -z -t embedded_palettes_table `$(FIND_PALETTES_CMD)`'
@@ -112,7 +113,8 @@ json-convert-themes: sync-themes setup-etc-themes
 #	@find etc/themes/*.yml -type f -name "*.yml" | while read -r f; do yaml2json < $$f | jq -Mrc | tee etc/themes/`basename $$f .yml`.json; done | pv -l >/dev/null
 
 do-embed-themes: setup-etc-themes
-	@mkdir embeds||true
+	@[[ -d embeds ]] || mkdir embeds
+	@true
 
 #	@cd $(ETC_THEMES_DIR) && sh -c '$(EMBED_BINARY) -o $(EMBEDDED_THEMES_FILE) -z -t embedded_themes_table *.json'
 #

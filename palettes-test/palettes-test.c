@@ -4,8 +4,8 @@
 #include "palettes-test.h"
 //////////////////
 struct djbhash PalettesHash;
-extern char *EMBEDDED_PALETTE_NAMES[];
-extern int EMBEDDED_PALETTE_NAMES_QTY;
+extern char    *EMBEDDED_PALETTE_NAMES[];
+extern int     EMBEDDED_PALETTE_NAMES_QTY;
 //////////////////
 #define BIN_DATA(NAME) \
   __THEME__ ## NAME ## _json__ ## Data
@@ -13,46 +13,46 @@ extern int EMBEDDED_PALETTE_NAMES_QTY;
   INCBIN_EXTERN(NAME ## _json__); \
 //////////////////////////////
 #define GET_NAME_JSON_OBJECT(NAME) \
-  (JSON_Object*)(djbhash_find(&PalettesHash, #NAME)->value)
+  (JSON_Object *)(djbhash_find(&PalettesHash, #NAME)->value)
 //////////////////////////////
-#define GET_NAME_JSON_OBJECT_PROPS_QTY(NAME)\
+#define GET_NAME_JSON_OBJECT_PROPS_QTY(NAME) \
   json_object_get_count(GET_NAME_JSON_OBJECT(NAME))
 //////////////////////////////
-#define GET_NAME_JSON_OBJECT_PROP(NAME,PROP) \
-  json_object_get_string(GET_NAME_JSON_OBJECT(NAME),PROP)
+#define GET_NAME_JSON_OBJECT_PROP(NAME, PROP) \
+  json_object_get_string(GET_NAME_JSON_OBJECT(NAME), PROP)
 //////////////////////////////
-#define SET_NAME_HASH_ITEM(NAME)\
-  djbhash_set(&PalettesHash, #NAME, json_value_get_object(json_parse_string(BIN_DATA(NAME))), DJBHASH_OTHER);\
+#define SET_NAME_HASH_ITEM(NAME)                                                                              \
+  djbhash_set(&PalettesHash, #NAME, json_value_get_object(json_parse_string(BIN_DATA(NAME))), DJBHASH_OTHER); \
 //////////////////////////////
-#define LOADJSON(NAME){do{    \
-  SET_NAME_HASH_ITEM(NAME);\
-  fprintf(stderr, "JSON Parsed Props        :%lu\n", GET_NAME_JSON_OBJECT_PROPS_QTY(NAME));\
-  fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"name"));\
-  fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"background"));\
-  fprintf(stderr, "JSON Parsed Green        :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME,"green"));\
-}while(0);}
+#define LOADJSON(NAME)    { do{                                                                                                 \
+                              SET_NAME_HASH_ITEM(NAME);                                                                         \
+                              fprintf(stderr, "JSON Parsed Props        :%lu\n", GET_NAME_JSON_OBJECT_PROPS_QTY(NAME));         \
+                              fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME, "name"));       \
+                              fprintf(stderr, "JSON Parsed Name         :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME, "background")); \
+                              fprintf(stderr, "JSON Parsed Green        :%s\n", GET_NAME_JSON_OBJECT_PROP(NAME, "green"));      \
+                            }while (0); }
 //////////////////////////////
 #define DEBUG_INCBIN(NAME)                                            \
   fprintf(stderr, "Name:%s\n",             # NAME);                   \
   fprintf(stderr, "Size:%d\n", __THEME__ ## NAME ## _json__ ## Size); \
-  fprintf(stderr, "DATA:%s\n", (char*)BIN_DATA(NAME));                       \
-  LOADJSON(NAME);\
+  fprintf(stderr, "DATA:%s\n", (char *)BIN_DATA(NAME));               \
+  LOADJSON(NAME);                                                     \
 //////////////////////////////////////////////
 #define LOADBINS()    \
-  LOADBIN(matrix);       \
-  LOADBIN(Vaughn);       \
-  LOADBIN(ayu_light);       \
+  LOADBIN(matrix);    \
+  LOADBIN(Vaughn);    \
+  LOADBIN(ayu_light); \
 //////////////////
-#define DEBUG_INCBINS(){do{    \
-  djbhash_init(&PalettesHash);\
-  DEBUG_INCBIN(matrix);       \
-  DEBUG_INCBIN(Vaughn);       \
-  DEBUG_INCBIN(ayu_light);       \
-  fprintf(stderr, "Hash Qty:%d\n",PalettesHash.active_count);\
-  djbhash_destroy(&PalettesHash);\
-  for(int i=0;i<EMBEDDED_PALETTE_NAMES_QTY;i++)\
-    printf(">pn:%s\n",EMBEDDED_PALETTE_NAMES[i]);\
-}while(0);}
+#define DEBUG_INCBINS()    { do{                                                            \
+                               djbhash_init(&PalettesHash);                                 \
+                               DEBUG_INCBIN(matrix);                                        \
+                               DEBUG_INCBIN(Vaughn);                                        \
+                               DEBUG_INCBIN(ayu_light);                                     \
+                               fprintf(stderr, "Hash Qty:%d\n", PalettesHash.active_count); \
+                               djbhash_destroy(&PalettesHash);                              \
+                               for (int i = 0; i < EMBEDDED_PALETTE_NAMES_QTY; i++)         \
+                               printf(">pn:%s\n", EMBEDDED_PALETTE_NAMES[i]);               \
+                             }while (0); }
 //////////////////
 LOADBINS();
 

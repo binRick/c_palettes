@@ -1,10 +1,10 @@
 #pragma once
 #include "palette-utils/palette-utils.h"
-#include "submodules/meson_deps/submodules/incbin/incbin.h"
-#include "submodules/meson_deps/submodules/parson/parson.h"
 #include "submodules/meson_deps/submodules/c_ansi/ansi-codes/ansi-codes.h"
 #include "submodules/meson_deps/submodules/c_colors/hex-png-pixel-utils/hex-png-pixel-utils.h"
 #include "submodules/meson_deps/submodules/c_fsio/include/fsio.h"
+#include "submodules/meson_deps/submodules/incbin/incbin.h"
+#include "submodules/meson_deps/submodules/parson/parson.h"
 #include <ctype.h>
 #include <math.h>
 #include <stdarg.h>

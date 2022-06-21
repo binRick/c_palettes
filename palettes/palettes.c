@@ -17,9 +17,9 @@
   INCBIN(char, _CONCATENATE(NAME, _json__), _JSON_FILENAME(NAME));
 ///////////////////////////////////////////////////
 #define _INCBINS()    \
-_INCBIN(matrix); \
-_INCBIN(Vaughn); \
-_INCBIN(ayu_light); \
+  _INCBIN(matrix);    \
+  _INCBIN(Vaughn);    \
+  _INCBIN(ayu_light); \
 ///////////////////////////////////////////////////
 //  for(int i=0;i<EMBEDDED_PALETTE_NAMES_QTY;i++)\
 //     _INCBIN(EMBEDDED_PALETTE_NAMES[i]);\
@@ -32,6 +32,8 @@ _INCBINS();
 #undef _CAT
 #undef _CONCATENATE
 #undef _EVAL
+
+
 //////////////////////////////////////////////
 HexPngWriterConfig gen_hex_write_config(){
   HexPngWriterConfig CONFIG = {
@@ -39,14 +41,19 @@ HexPngWriterConfig gen_hex_write_config(){
     .PATH  = "/tmp",
     .DEBUG = false,
   };
+
   return(CONFIG);
 }
+
+
 //////////////////////////////////////////////
 const char *palettes_basename(const char *path){
   const char *p;
+
   p = strrchr(path, '/');
   return(p != NULL ? p + 1 : path);
 }
+
 
 //////////////////////////////////////////////
 char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA){
