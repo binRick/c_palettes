@@ -19,3 +19,6 @@ etc/palettes.sqlite
 etc/test-theme.json
 .venv
 etc/themes
+.make-log-*
+.make-*log*
+.DU
