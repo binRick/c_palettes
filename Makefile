@@ -104,11 +104,11 @@ install: do-install
 do-install: all
 	@meson install -C build
 do-meson:
-	@eval cd . && {  meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }; echo MESON OK; }
+	@meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }
 do-build: do-meson
 	@meson compile -C build
 do-test:
-	@passh meson test -C build -v
+	@passh meson test -C build -v --print-errorlogs	
 clean: do-clean
 do-clean: 
 	@rm -rf $(EMBEDS_DIR) build *.png

@@ -1,7 +1,5 @@
 #pragma once
-#ifndef _PALETTESDB_H_INCLDED
-#define _PALETTESDB_H_INCLDED
-#include "../vendor/sqlite3.h"
+#include "sqlite3.h"
 #include <limits.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -34,4 +32,3 @@ void *palettedb_count_ids(palettedb db, size_t *size);
 void *palettedb_get_typeid_ids(palettedb db, const palettedb_type type, size_t *size, size_t *rows_qty);
 void *palettedb_get_distinct_typeids(palettedb db, size_t *size, size_t *rows_qty);
 
-#endif

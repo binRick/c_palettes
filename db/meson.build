@@ -1,7 +1,6 @@
 db_srcs = [
   'db.c',
   'db-mgr.c',
-  '../vendor/sqlite3.c',
 ]
 db_inc_dirs = [
   '../submodules',
@@ -15,6 +14,7 @@ db_deps = [
      ansi_codes_dep, 
      bytes_dep,
      c_string_buffer_dep,
+     sqlite3_dep,
      #c_timer_dep,
 ]
 sqlite_cflags = [

@@ -1,4 +1,6 @@
-project('c_palettes', ['c'], default_options: ['warning_level=0','c_std=gnu99'])
+project('c_palettes', ['c'], default_options: ['warning_level=0','c_std=gnu99'], 
+  subproject_dir: 'submodules/meson_deps/subprojects',
+)
 cc = meson.get_compiler('c')
 meson_deps_dir = join_paths(meson.current_source_dir(),'submodules/meson_deps')
 pwd = meson.current_source_dir()
@@ -22,9 +24,9 @@ subdir('db')
 subdir('palette-utils')
 #//////////////////////////////////////
 subdir('palettes')
-subdir('palettes-test')
+#subdir('palettes-test')
 #//////////////////////////////////////
 subdir('menu')
-subdir('parser')
+#subdir('parser')
 subdir('palette-names')
 #//////////////////////////////////////////////////////////////////////

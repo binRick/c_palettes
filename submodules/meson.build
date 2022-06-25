@@ -1,3 +1,4 @@
+subdir('meson_deps/meson/sqlite3')
 subdir('meson_deps/meson/args')
 subdir('meson_deps/meson/inc')
 subdir('meson_deps/submodules/c_ansi/ansi-codes')
@@ -24,6 +25,8 @@ subdir('meson_deps/meson/deps/rgba')
 subdir('meson_deps/meson/deps/fs')
 subdir('meson_deps/meson/deps/bytes')
 subdir('meson_deps/meson/deps/termpaint')
+subdir('meson_deps/meson/deps/hsluv-c')
 subdir('meson_deps/submodules/c_ansi/ansi-rgb-utils')
 subdir('meson_deps/submodules/c_ansi/ansi-utils')
 subdir('meson_deps/submodules/c_ansi/term-utils')
+

@@ -10,7 +10,7 @@
 #include "submodules/c_stringfn/include/stringfn.h"
 #include "submodules/fs.c/fs.h"
 #include "submodules/parson/parson.h"
-#include "vendor/sqlite3.h"
+#include "sqlite3.h"
 #include "db-mgr.h"
 //////////////////////////////////////////////////////
 #define PALETTEDB_MAX_HASH_BUCKETS 65535 * 256

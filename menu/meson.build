@@ -13,7 +13,6 @@ list_deps = [
      parson_dep,
      c_stringfn_dep,
      fs_dep,
-     #ansicodes_dep,
      rgba_dep, 
      cargs_dep,
      #c_timer_dep,

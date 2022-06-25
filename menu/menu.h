@@ -1,6 +1,4 @@
 #pragma once
-#ifndef MENU_H
-#define MENU_H
 
 
 #include <assert.h>
@@ -13,11 +11,12 @@
 #include <string.h>
 #include <sys/time.h>
 
-//#include "../submodules/assertf/assertf.h"
 #include "../submodules/bytes/bytes.h"
+#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "../submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
+#include "../submodules/c_ansi/ansi-utils/ansi-utils.h"
 #include "../submodules/c_string_buffer/include/stringbuffer.h"
 #include "../submodules/c_stringfn/include/stringfn.h"
-//#include "../submodules/c_timer/include/c_timer.h"
 #include "../submodules/cargs/include/cargs.h"
 #include "../submodules/dbg/dbg.h"
 #include "../submodules/debug_print_h/debug_print.h"
@@ -28,13 +27,6 @@
 #include "../submodules/rgba/src/rgba.h"
 #include "../submodules/timestamp/timestamp.h"
 #include "../subprojects/parson/parson.h"
-//#include "../vendor/ansicodes/ansicodes.h"
-#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
-#include "../submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
-#include "../submodules/c_ansi/ansi-utils/ansi-utils.h"
-
-///##include "../vendor/ansicodes/rgbansi.h"
-//#include "../submodules/c_embed/loader/include/embeds.h"
 
 #define RENDER_COLOR_OUTPUT     false
 #define RENDER_PRETTY_JSON      true
@@ -109,5 +101,3 @@ static struct cag_option options[] = {
     .description    = "Shows the command help" }
 };
 
-
-#endif

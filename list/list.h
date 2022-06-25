@@ -30,10 +30,6 @@
 #include "../submodules/timestamp/timestamp.h"
 #include "../subprojects/parson/parson.h"
 
-//##include "../vendor/ansicodes/ansicodes.h"
-//##include "../vendor/ansicodes/rgbansi.h"
-//#include "../submodules/c_embed/loader/include/embeds.h"
-
 #define RENDER_COLOR_OUTPUT     false
 #define RENDER_PRETTY_JSON      true
 #define DEFAULT_COUNT           10

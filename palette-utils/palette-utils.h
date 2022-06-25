@@ -23,11 +23,11 @@
 #ifndef PRINT_H
 //#include "submodules/generic-print/print.h"
 #endif
+#include "ansi-rgb-utils/ansi-rgb-utils.h"
 #include "submodules/ms/ms.h"
 #include "submodules/rgba/src/rgba.h"
 #include "submodules/timestamp/timestamp.h"
 #include "subprojects/parson/parson.h"
-#include "vendor/ansicodes/rgbansi.h"
 //////////////////////////////////////////////////////////////////////////////
 int load_palettes_hash();
 int parse_embedded_palettes();
