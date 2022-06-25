@@ -20,15 +20,16 @@ palettes_test_deps = [
   libyaml_dep,
   generic_print_dep,
   c_timer_dep,
+  ansi_rgb_utils_dep,
+  ansi_utils_dep,
+  ansi_codes_dep,
   dbg_dep,
 ]
 
 if get_option('enable-binaries')
   palettes_test_exec = executable('palettes-test', palettes_test_srcs,
      dependencies: palettes_test_deps,
-     include_directories: [
-       palettes_test_inc,
-     ],
+     include_directories: palettes_test_inc,
   )
   if get_option('enable-binary-tests')
     test('palettes-test', palettes_test_exec, args: ['--test'])

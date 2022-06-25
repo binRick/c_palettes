@@ -7,26 +7,38 @@ pwd = meson.current_source_dir()
 submodule_srcs = []
 inc = [
   include_directories(
-   './submodules/meson_deps','./submodules/meson_deps/submodules','./submodules/meson_deps/vendor',
-   './submodules/meson_deps/vendor/sqlite',
+        'palette-utils',
+        'embeds',
+        '.',
+  ),
+  include_directories(
+        'submodules/meson_deps/submodules/list/src',
+        'submodules/meson_deps/submodules/debug_print_h/include',
+        'submodules/meson_deps/submodules/debug_print_h',
+        'submodules/meson_deps/etc',
+        'submodules/meson_deps',
   ),  
   include_directories(
-    'submodules/c_ansi','./',
+        'submodules/meson_deps/submodules/c_ansi',
+        'submodules/meson_deps/submodules',
+        ),
+  include_directories(
+        'submodules/meson_deps/submodules/progressbar/include',
+        'submodules/meson_deps/submodules/progressbar/lib',
+        'submodules/meson_deps/submodules/progressbar/include/progressbar',
   ),
 ]
 #############################################################################
 subdir('submodules')
-#//////////////////////////////////////////////////////////////////////
-#subdir('meson/deps/embedded_palettes')
 #//////////////////////////////////////////////////////////////////////
 subdir('yaml-dumper')
 subdir('db')
 subdir('palette-utils')
 #//////////////////////////////////////
 subdir('palettes')
-#subdir('palettes-test')
+subdir('palettes-test')
 #//////////////////////////////////////
 subdir('menu')
-#subdir('parser')
+subdir('parser')
 subdir('palette-names')
 #//////////////////////////////////////////////////////////////////////

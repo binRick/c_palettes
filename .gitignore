@@ -22,3 +22,4 @@ etc/themes
 .make-log-*
 .make-*log*
 .DU
+.submodules/

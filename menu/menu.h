@@ -11,22 +11,21 @@
 #include <string.h>
 #include <sys/time.h>
 
-#include "../submodules/bytes/bytes.h"
-#include "../submodules/c_ansi/ansi-codes/ansi-codes.h"
-#include "../submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
-#include "../submodules/c_ansi/ansi-utils/ansi-utils.h"
-#include "../submodules/c_string_buffer/include/stringbuffer.h"
-#include "../submodules/c_stringfn/include/stringfn.h"
-#include "../submodules/cargs/include/cargs.h"
-#include "../submodules/dbg/dbg.h"
-#include "../submodules/debug_print_h/debug_print.h"
-#include "../submodules/djbhash/src/djbhash.h"
-#include "../submodules/fs.c/fs.h"
-#include "../submodules/generic-print/print.h"
-#include "../submodules/ms/ms.h"
-#include "../submodules/rgba/src/rgba.h"
-#include "../submodules/timestamp/timestamp.h"
-#include "../subprojects/parson/parson.h"
+#include "submodules/bytes/bytes.h"
+#include "submodules/c_ansi/ansi-codes/ansi-codes.h"
+#include "submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
+#include "submodules/c_ansi/ansi-utils/ansi-utils.h"
+#include "submodules/c_string_buffer/include/stringbuffer.h"
+#include "submodules/c_stringfn/include/stringfn.h"
+#include "submodules/cargs/include/cargs.h"
+#include "submodules/dbg/dbg.h"
+#include "submodules/djbhash/src/djbhash.h"
+#include "submodules/fs.c/fs.h"
+#include "submodules/generic-print/print.h"
+#include "submodules/ms/ms.h"
+#include "submodules/rgba/src/rgba.h"
+#include "submodules/timestamp/timestamp.h"
+#include "subprojects/parson/parson.h"
 
 #define RENDER_COLOR_OUTPUT     false
 #define RENDER_PRETTY_JSON      true

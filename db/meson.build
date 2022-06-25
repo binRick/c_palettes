@@ -3,8 +3,8 @@ db_srcs = [
   'db-mgr.c',
 ]
 db_inc_dirs = [
-  '../submodules',
-  '../',
+  '.',
+  inc,
 ]
 db_deps = [
      cargs_dep,

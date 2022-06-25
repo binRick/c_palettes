@@ -25,13 +25,10 @@ list_deps = [
 ]
 if get_option('enable-binaries')
   list_exec = executable('list',
-     [
-      list_srcs,
-      files(submodule_srcs),
-     ],
+     list_srcs,
      dependencies: list_deps,
      include_directories: [
-       '../submodules/c_string_buffer/include',
+       '../submodules/meson_deps/submodules/c_string_buffer/include',
        inc,
      ],
   )
