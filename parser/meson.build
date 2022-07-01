@@ -21,6 +21,7 @@ if get_option('enable-binaries')
      ],
   )
   if get_option('enable-binary-tests')
-    test('parser Test', parser_exec, args: ['--test'])
+    test('parser', parser_exec, args: ['--test'])
+    #'-c','100','-C','etc/colornames.bestof.csv','-J','etc/colornames.test.json','-D','etc/colornames.test.sqlite','-m','json'])
   endif
 endif
