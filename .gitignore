@@ -23,3 +23,5 @@ etc/themes
 .make-*log*
 .DU
 .submodules/
+etc/palettes.sqlite
+etc/.palettes.sqlite

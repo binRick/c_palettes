@@ -97,15 +97,15 @@ do-python-venv:
 	@[[ -f $(VENV_DIR)/bin/activate ]] ||  { python3 -m venv $(VENV_DIR) && $(SOURCE_VENV_CMD); }
 python-venv-yaml2json:
 	@[[ -f $(YAML2JSON_BIN) ]] || { $(SOURCE_VENV_CMD) && pip3 install json2yaml; }
-do-parser: parser-tests
-tests: do-build parser-tests
+tests: do-test
 test: tests
+build: do-build
 install: do-install
 do-install: all
 	@meson install -C build
 do-meson:
 	@meson build || { meson build --reconfigure || { meson build --wipe; } && meson build; }
-do-build: do-meson
+do-build: embed-palettes yaml2json do-meson
 	@meson compile -C build
 do-test:
 	@passh meson test -C build -v --print-errorlogs	
@@ -166,5 +166,7 @@ meson-introspect-targets:
 	@meson introspect --targets -i meson.build
 meson-binaries:
 	@meson introspect --targets  meson.build -i | jq 'map(select(.type == "executable").filename)|flatten|join("\n")' -Mrc|xargs -I % echo ./build/%
+
+
 run-binary:
 	@make meson-binaries | fzf --reverse | xargs -I % passh "./%"

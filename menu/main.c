@@ -86,13 +86,8 @@ int parse_args(int argc, char *argv[]){
 
 int main(int argc, char **argv) {
   if ((argc >= 2) && (strcmp(argv[1], "--test") == 0)) {
-    printf("Test OK\n"); return(0);
+    printf("Test OK..\n"); return(0);
   }
 
   return(menu_main(argc, argv));
-
-  printf(AC_RESETALL AC_RED "No mode selected: %s\n" AC_RESETALL, args.mode);
-  return(1);
-
-  return(EXIT_SUCCESS);
 }

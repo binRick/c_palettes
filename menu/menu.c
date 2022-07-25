@@ -303,7 +303,7 @@ void repaint_samples(termpaint_attr *attr_ui, termpaint_attr *attr_sample){
 void repaint_all(termpaint_attr *attr_ui, termpaint_attr *attr_sample){
   termpaint_surface_clear_with_attr(surface, attr_ui);
 
-  termpaint_surface_write_with_attr(surface, 1, 0, "Attribute Demo", attr_ui);
+  termpaint_surface_write_with_attr(surface, 1, 0, "Menu Demo", attr_ui);
 
   repaint_samples(attr_ui, attr_sample);
 

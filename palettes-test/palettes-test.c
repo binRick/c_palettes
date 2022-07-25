@@ -211,7 +211,7 @@ int parse_args(int argc, char **argv){
       args.pretty = true;
       break;
     case 'h':
-      fprintf(stderr, AC_RESETALL AC_YELLOW AC_BOLD "Usage: hex-png-pixel-creator [OPTION]\n" AC_RESETALL);
+      fprintf(stderr, AC_RESETALL AC_YELLOW AC_BOLD "Usage: palettes-test [OPTION]\n" AC_RESETALL);
       cag_option_print(options, CAG_ARRAY_SIZE(options), stdout);
       exit(EXIT_SUCCESS);
     }
