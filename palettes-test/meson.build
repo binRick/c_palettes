@@ -18,7 +18,7 @@ palettes_test_deps = [
   ms_dep,
   parson_dep,
   libyaml_dep,
-  generic_print_dep,
+  
   c_timer_dep,
   ansi_rgb_utils_dep,
   ansi_utils_dep,

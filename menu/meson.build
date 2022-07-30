@@ -5,7 +5,7 @@ list_deps = [
      ms_dep,
      bytes_dep,
      #     c_embed_dep,
-     #generic_print_dep,
+     #
      #     debug_print_h_dep,
      djbhash_dep,
      c_string_buffer_dep,
