@@ -1,9 +1,9 @@
 project('c_palettes', ['c'], default_options: ['warning_level=0','c_std=gnu99'], 
-  subproject_dir: 'submodules/meson_deps/subprojects',
+  subproject_dir: 'submodules/c_deps/subprojects',
   version: '0.0.1',
 )
 cc = meson.get_compiler('c')
-meson_deps_dir = join_paths(meson.current_source_dir(),'submodules/meson_deps')
+c_deps_dir = join_paths(meson.current_source_dir(),'submodules/c_deps')
 pwd = meson.current_source_dir()
 submodule_srcs = []
 inc = [
@@ -13,20 +13,20 @@ inc = [
         '.',
   ),
   include_directories(
-        'submodules/meson_deps/submodules/list/src',
-        'submodules/meson_deps/submodules/debug_print_h/include',
-        'submodules/meson_deps/submodules/debug_print_h',
-        'submodules/meson_deps/etc',
-        'submodules/meson_deps',
+        'submodules/c_deps/submodules/list/src',
+        'submodules/c_deps/submodules/debug_print_h/include',
+        'submodules/c_deps/submodules/debug_print_h',
+        'submodules/c_deps/etc',
+        'submodules/c_deps',
   ),  
   include_directories(
-        'submodules/meson_deps/submodules/c_ansi',
-        'submodules/meson_deps/submodules',
+        'submodules/c_deps/submodules/c_ansi',
+        'submodules/c_deps/submodules',
         ),
   include_directories(
-        'submodules/meson_deps/submodules/progressbar/include',
-        'submodules/meson_deps/submodules/progressbar/lib',
-        'submodules/meson_deps/submodules/progressbar/include/progressbar',
+        'submodules/c_deps/submodules/progressbar/include',
+        'submodules/c_deps/submodules/progressbar/lib',
+        'submodules/c_deps/submodules/progressbar/include/progressbar',
   ),
 ]
 #############################################################################

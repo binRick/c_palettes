@@ -24,7 +24,7 @@ if get_option('enable-binaries')
      list_srcs,
      dependencies: list_deps,
      include_directories: [
-       '../submodules/meson_deps/submodules/c_string_buffer/include',
+       '../submodules/c_deps/submodules/c_string_buffer/include',
        inc,
      ],
   )
