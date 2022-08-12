@@ -78,7 +78,7 @@ int list_palettes(){
   Palette *P;
 
   if (args.verbose) {
-    dbg(embedded_palettes_table_qty, %lu);
+    dbg(embedded_palettes_table_qty, %u);
   }
   for (int i = 0; i < embedded_palettes_table_qty && i < args.count; i++) {
     Palette _p = get_palette(embedded_palettes_table[i].data); P = &_p;
@@ -105,8 +105,8 @@ int list_palettes(){
 
       dbg(embedded_palettes_table[i].filename, %s);
       dbg(palettes_basename(embedded_palettes_table[i].filename), %s);
-      dbg(embedded_palettes_table[i].size, %lu);
-      dbg(strlen(embedded_palettes_table[i].data), %lu);
+      dbg(embedded_palettes_table[i].size, %u);
+      dbg(strlen(embedded_palettes_table[i].data), %u);
 
       dbg((int)P->Type, %d);
       dbg((char *)P->Name, %s);

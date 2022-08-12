@@ -543,9 +543,9 @@ int parse_args(int argc, char *argv[]){
       );
   }
 
-  assert_ge(EMBEDDED_PALETTES_TABLE_QTY, 10, %lu);
-  assert_ge(EMBEDDED_PALETTES_TABLE_SIZE, 1024, %lu);
-  assert_le(palettes_age, 60 * 1000 * MAX_VALID_EMBEDDED_PALETTES_DATA_AGE_MINUTES, %lu);
+  assert_ge(EMBEDDED_PALETTES_TABLE_QTY, 10, %u);
+  assert_ge(EMBEDDED_PALETTES_TABLE_SIZE, 1024, %u);
+  assert_le(palettes_age, 60 * 1000 * MAX_VALID_EMBEDDED_PALETTES_DATA_AGE_MINUTES, %u);
 
   cag_option_prepare(&context, options, CAG_ARRAY_SIZE(options), argc, argv);
   while (cag_option_fetch(&context)) {

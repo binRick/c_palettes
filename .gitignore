@@ -25,3 +25,4 @@ etc/themes
 .submodules/
 etc/palettes.sqlite
 etc/.palettes.sqlite
+submodules/c_deps
