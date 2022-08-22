@@ -85,7 +85,6 @@ char *          get_palette_data_type_name(char *PALETTE_DATA);
 \\033]12;#$(echo $cursor)\\033\\ \
 \\033[21D\""
 
-
 #define PRINT_PALETTE_COLORS    "\
 \033[48;5;0m  \033[0m\
 \033[48;5;1m  \033[0m\

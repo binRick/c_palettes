@@ -27,7 +27,6 @@
 struct djbhash_node *EMBEDDED_PALETTES_TABLE_ITEM;
 struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
 
-
 static char *__basename(const char *path){
   const char *slash = strrchr(path, '/');
 
@@ -36,7 +35,6 @@ static char *__basename(const char *path){
   }
   return((char *)path);
 }
-
 
 int parse_embedded_palettes(){
   //ct_start(NULL);
@@ -211,7 +209,6 @@ int parse_embedded_palettes(){
   return(0);
 } /* parse_embedded_palettes */
 
-
 struct StringBuffer *strings_to_stringbuffer(struct StringFNStrings S){
   struct StringBuffer *sb = stringbuffer_new_with_options(1024, true);
 
@@ -260,7 +257,6 @@ struct StringFNStrings get_palette_files(){
   return(stringbuffer_to_strings(sb));
 }
 
-
 int load_palettes_hash(){
   djbhash_init(&EMBEDDED_PALETTES_TABLE_HASH);
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
@@ -284,7 +280,6 @@ int load_palettes_hash(){
   return(0);
 }
 
-
 char *denormalize_palette_filename(char *FILENAME){
   if (!stringfn_starts_with(FILENAME, "./")) {
     char *FF = malloc(strlen(FILENAME) - 2);
@@ -294,7 +289,6 @@ char *denormalize_palette_filename(char *FILENAME){
   return(FILENAME);
 }
 
-
 char *normalize_palette_filename(char *FILENAME){
   if (stringfn_starts_with(FILENAME, "./")) {
     char *FF = stringfn_substring(FILENAME, 2, 0);
@@ -302,7 +296,6 @@ char *normalize_palette_filename(char *FILENAME){
   }
   return(FILENAME);
 }
-
 
 bool palette_file_exists(char *PALETTE_FILE){
   return(
@@ -314,7 +307,6 @@ bool palette_file_exists(char *PALETTE_FILE){
     );
 }
 
-
 char *prefix_string(char *PREFIX, char *STRING){
   struct StringBuffer *sb = stringbuffer_new_with_options(strlen(STRING) + 2, true);
 
@@ -325,7 +317,6 @@ char *prefix_string(char *PREFIX, char *STRING){
   stringbuffer_release(sb);
   return(NS);
 }
-
 
 int palette_name_exists_qty(char *PALETTE_NAME){
   int                    qty   = 0;

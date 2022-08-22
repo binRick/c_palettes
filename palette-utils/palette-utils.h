@@ -26,9 +26,9 @@
 //#include "submodules/generic-print/print.h"
 #endif
 #include "ansi-rgb-utils/ansi-rgb-utils.h"
+#include "parson/parson.h"
 #include "submodules/ms/ms.h"
 #include "submodules/timestamp/timestamp.h"
-#include "subprojects/parson/parson.h"
 //////////////////////////////////////////////////////////////////////////////
 int load_palettes_hash();
 int parse_embedded_palettes();

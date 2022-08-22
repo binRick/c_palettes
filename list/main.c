@@ -28,7 +28,6 @@ args_t args = {
   DEFAULT_PALETTE_FILE,
 };
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 int parse_embedded_palettes(){
   ct_start(NULL);
@@ -201,7 +200,6 @@ int parse_embedded_palettes(){
   return(0);
 } /* parse_embedded_palettes */
 
-
 int debug_args(){
   fprintf(stderr,
           acs(AC_BRIGHT_BLUE_BLACK AC_ITALIC  "Verbose: %d")
@@ -224,7 +222,6 @@ int debug_args(){
           );
   return(EXIT_SUCCESS);
 }
-
 
 int main(int argc, char **argv) {
   int r;
@@ -309,7 +306,6 @@ int main(int argc, char **argv) {
   return(EXIT_SUCCESS);
 } /* main */
 
-
 char *prefix_string(char *PREFIX, char *STRING){
   struct StringBuffer *sb = stringbuffer_new_with_options(strlen(STRING) + 2, true);
 
@@ -338,7 +334,6 @@ struct StringFNStrings palette_name_files(char *PALETTE_NAME){
   return(stringbuffer_to_strings(sb));
 }
 
-
 bool palette_file_exists(char *PALETTE_FILE){
   return(
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE) != NULL)
@@ -348,7 +343,6 @@ bool palette_file_exists(char *PALETTE_FILE){
     (djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, denormalize_palette_filename(PALETTE_FILE)) != NULL)
     );
 }
-
 
 int palette_name_exists_qty(char *PALETTE_NAME){
   int                    qty   = 0;
@@ -361,7 +355,6 @@ int palette_name_exists_qty(char *PALETTE_NAME){
   }
   return(qty);
 }
-
 
 bool palette_name_exists(char *PALETTE_NAME){
   return(palette_name_exists_qty(PALETTE_NAME) > 0);
@@ -376,7 +369,6 @@ struct StringFNStrings get_palette_colors(char *PALETTE_NAME){
   stringbuffer_release(sb);
   return(items);
 }
-
 
 int print_strings(struct StringFNStrings S){
   for (int i = 0; i < S.count; i++) {
@@ -449,7 +441,6 @@ struct StringFNStrings get_palette_files(){
   return(stringbuffer_to_strings(sb));
 }
 
-
 char *denormalize_palette_filename(char *FILENAME){
   if (!stringfn_starts_with(FILENAME, "./")) {
     char *FF = malloc(strlen(FILENAME) - 2);
@@ -458,7 +449,6 @@ char *denormalize_palette_filename(char *FILENAME){
   }
   return(FILENAME);
 }
-
 
 char *normalize_palette_filename(char *FILENAME){
   if (stringfn_starts_with(FILENAME, "./")) {
@@ -518,7 +508,6 @@ char *normalize_palette_filename(char *FILENAME){
  * djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
  * return(EXIT_SUCCESS);
  * } */
-
 
 int parse_args(int argc, char *argv[]){
   char               identifier;
@@ -585,7 +574,5 @@ int parse_args(int argc, char *argv[]){
     }
   }
 
-
   return(EXIT_SUCCESS);
 } /* parse_args */
-

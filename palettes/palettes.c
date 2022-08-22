@@ -33,7 +33,6 @@ _INCBINS();
 #undef _CONCATENATE
 #undef _EVAL
 
-
 //////////////////////////////////////////////
 HexPngWriterConfig gen_hex_write_config(){
   HexPngWriterConfig CONFIG = {
@@ -45,7 +44,6 @@ HexPngWriterConfig gen_hex_write_config(){
   return(CONFIG);
 }
 
-
 //////////////////////////////////////////////
 const char *palettes_basename(const char *path){
   const char *p;
@@ -53,7 +51,6 @@ const char *palettes_basename(const char *path){
   p = strrchr(path, '/');
   return(p != NULL ? p + 1 : path);
 }
-
 
 //////////////////////////////////////////////
 char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_DATA){
@@ -137,7 +134,6 @@ char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_
   return(stringfn_to_uppercase(PROPERTY_VALUE));
 } /* get_palette_property_value */
 
-
 struct Palette get_palette(char *PALETTE_DATA){
   struct Palette P = {
     .Name     = "UNKNOWN",
@@ -208,18 +204,15 @@ struct Palette get_palette(char *PALETTE_DATA){
 //  int r = write_hex_png_to_path(&config);
 // printf("r:%d\n",r);
 
-
   json_value_free(j);
   stringfn_release_strings_struct(LINES);
 
   return(P);
 } /* get_palette */
 
-
 char *get_palette_data_type_name(char *PALETTE_DATA){
   return(PALETTE_TYPE_NAMES[get_palette_data_type(PALETTE_DATA)]);
 }
-
 
 int get_palette_data_type(char *PALETTE_DATA){
   struct StringFNStrings PALETTE_LINES = stringfn_split_lines_and_trim(PALETTE_DATA);

@@ -11,7 +11,6 @@ args_t args = {
   DEFAULT_PALETTE_FILE,
 };
 
-
 int debug_args(){
   fprintf(stderr,
           acs(AC_BRIGHT_BLUE_BLACK AC_ITALIC  "Verbose: %d")
@@ -34,7 +33,6 @@ int debug_args(){
           );
   return(EXIT_SUCCESS);
 }
-
 
 int parse_args(int argc, char *argv[]){
   char               identifier;
@@ -79,10 +77,8 @@ int parse_args(int argc, char *argv[]){
     }
   }
 
-
   return(EXIT_SUCCESS);
 } /* parse_args */
-
 
 int main(int argc, char **argv) {
   if ((argc >= 2) && (strcmp(argv[1], "--test") == 0)) {

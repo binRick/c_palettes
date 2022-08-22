@@ -1,4 +1,4 @@
-project('c_palettes', ['c'], default_options: ['warning_level=0','c_std=gnu99'], 
+project('c_palettes', ['c'], default_options: ['warning_level=0','c_std=gnu99','default_library=shared'], 
   subproject_dir: 'submodules/c_deps/subprojects',
   version: '0.0.1',
 )

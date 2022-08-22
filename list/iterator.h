@@ -36,4 +36,3 @@ struct djbhash      hash, palettes_hash;
                                                    HASH_INDEX_FUNCTION(HASH_INDEX);                                                                        \
                                                  }                                                                                                         \
                                                } while (0); }
-

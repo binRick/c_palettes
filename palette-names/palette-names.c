@@ -41,7 +41,6 @@ struct StringFNStrings pn_get_palette_files(){
 //  return(stringbuffer_to_strings(sb));
 }
 
-
 void pn_get_palette_names(){
   struct StringBuffer    *sb = stringbuffer_new_with_options(1024, true);
   struct StringFNStrings S   = pn_get_palette_files();
@@ -55,7 +54,6 @@ void pn_get_palette_names(){
   }
   //return(stringbuffer_to_strings(sb));
 }
-
 
 int main(int argc, char **argv) {
   if ((argc >= 2) && (strcmp(argv[1], "--test") == 0)) {
@@ -72,4 +70,3 @@ int main(int argc, char **argv) {
   printf("kk\n");
   return(0);
 }
-

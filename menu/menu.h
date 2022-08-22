@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <assert.h>
 #include <ctype.h>
 #include <stdarg.h>
@@ -11,6 +10,7 @@
 #include <string.h>
 #include <sys/time.h>
 
+#include "parson/parson.h"
 #include "submodules/bytes/bytes.h"
 #include "submodules/c_ansi/ansi-codes/ansi-codes.h"
 #include "submodules/c_ansi/ansi-rgb-utils/ansi-rgb-utils.h"
@@ -25,7 +25,6 @@
 #include "submodules/ms/ms.h"
 #include "submodules/rgba/src/rgba.h"
 #include "submodules/timestamp/timestamp.h"
-#include "subprojects/parson/parson.h"
 
 #define RENDER_COLOR_OUTPUT     false
 #define RENDER_PRETTY_JSON      true
@@ -99,4 +98,3 @@ static struct cag_option options[] = {
     .access_name    = "help",
     .description    = "Shows the command help" }
 };
-

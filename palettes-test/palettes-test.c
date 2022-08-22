@@ -1,3 +1,4 @@
+#include "embeds/tbl1.c"
 #define INCBIN_SILENCE_BITCODE_WARNING
 #define INCBIN_PREFIX    __THEME__
 //////////////////
@@ -73,7 +74,6 @@ args_t args = {
 };
 ////////////////////////////////////////////////////////////////////
 
-
 int list_palettes(){
   Palette *P;
 
@@ -131,7 +131,6 @@ int list_palettes(){
   return(EXIT_SUCCESS);
 } /* list_palettes */
 
-
 int list_palette_types(){
   if (args.verbose) {
     dbg(PALETTE_TYPE_NAMES_QTY, %d);
@@ -149,7 +148,6 @@ int list_palette_types(){
   }
   return(EXIT_SUCCESS);
 }
-
 
 int debug_args(){
   fprintf(stdout,
@@ -172,7 +170,6 @@ int debug_args(){
 
   return(EXIT_SUCCESS);
 }
-
 
 int parse_args(int argc, char **argv){
   char               identifier;
@@ -218,7 +215,6 @@ int parse_args(int argc, char **argv){
   }
   return(EXIT_SUCCESS);
 } /* parse_args */
-
 
 int main(int argc, char **argv) {
   (void)argc; (void)argv;
