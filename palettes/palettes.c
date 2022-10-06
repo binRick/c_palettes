@@ -199,11 +199,6 @@ struct Palette get_palette(char *PALETTE_DATA){
   sprintf(&P.JSON, "%s", (char *)json_serialize_to_string(j));
   sprintf(&P.JSON_PRETTY, "%s", (char *)json_serialize_to_string_pretty(j));
 
-  HexPngWriterConfig config = gen_hex_write_config();
-
-//  int r = write_hex_png_to_path(&config);
-// printf("r:%d\n",r);
-
   json_value_free(j);
   stringfn_release_strings_struct(LINES);
 

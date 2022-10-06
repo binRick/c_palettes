@@ -1,21 +1,20 @@
 #include "db-mgr.h"
 #include <stdio.h>
 
-#define SELECT_IDS_QUERY      "SELECT id FROM blobs"
-#define SELECT_TYPEIDS_QUERY  "SELECT type FROM blobs"
-#define SELECT_TYPEID_IDS_QUERY "SELECT id from blobs where type = ?"
+#define SELECT_IDS_QUERY                 "SELECT id FROM blobs"
+#define SELECT_TYPEIDS_QUERY             "SELECT type FROM blobs"
+#define SELECT_TYPEID_IDS_QUERY          "SELECT id from blobs where type = ?"
 
-#define SELECT_COUNT_TYPEIDS_QUERY    "SELECT COUNT(DISTINCT type) from blobs"
-#define SELECT_COUNT_IDS_QUERY    "SELECT COUNT(id) FROM blobs"
-#define SELECT_COUNT_TYPEID_QUERY "SELECT COUNT(id) from blobs where type = ?"
-#define SELECT_DISTINCT_TYPEIDS_QUERY "SELECT DISTINCT type from blobs"
+#define SELECT_COUNT_TYPEIDS_QUERY       "SELECT COUNT(DISTINCT type) from blobs"
+#define SELECT_COUNT_IDS_QUERY           "SELECT COUNT(id) FROM blobs"
+#define SELECT_COUNT_TYPEID_QUERY        "SELECT COUNT(id) from blobs where type = ?"
+#define SELECT_DISTINCT_TYPEIDS_QUERY    "SELECT DISTINCT type from blobs"
 
-#define SELECT_QUERY          "SELECT data FROM blobs WHERE id = ?"
-#define ONE_QUERY             "SELECT id, data FROM blobs WHERE type = ? LIMIT 1"
-#define INSERT_QUERY          "INSERT INTO blobs(type, data) VALUES (?, ?)"
-#define DELETE_QUERY          "DELETE FROM blobs WHERE id = ?"
-#define CREATE_TABLE_QUERY    "CREATE TABLE IF NOT EXISTS blobs (id INTEGER PRIMARY KEY, type INTEGER, data BLOB)"
-
+#define SELECT_QUERY                     "SELECT data FROM blobs WHERE id = ?"
+#define ONE_QUERY                        "SELECT id, data FROM blobs WHERE type = ? LIMIT 1"
+#define INSERT_QUERY                     "INSERT INTO blobs(type, data) VALUES (?, ?)"
+#define DELETE_QUERY                     "DELETE FROM blobs WHERE id = ?"
+#define CREATE_TABLE_QUERY               "CREATE TABLE IF NOT EXISTS blobs (id INTEGER PRIMARY KEY, type INTEGER, data BLOB)"
 
 void *palettedb_get_distinct_typeids(palettedb db, size_t *size, size_t *rows_qty){
   const void    *p;
@@ -47,7 +46,6 @@ reset:
   sqlite3_reset(db->distinct_typeids);
   return(copy);
 }
-
 
 void *palettedb_get_typeid_ids(palettedb db, const palettedb_type type, size_t *size, size_t *rows_qty){
   const void    *p;
@@ -83,9 +81,7 @@ reset:
   return(copy);
 }
 
-
 void *palettedb_count_ids(palettedb db, size_t *size){
-  const void    *p;
   unsigned char *copy = NULL;
 
   if (sqlite3_step(db->count_ids) != SQLITE_ROW) {
@@ -101,9 +97,7 @@ reset:
   return(copy);
 }
 
-
 void *palettedb_count_typeids(palettedb db, size_t *size){
-  const void    *p;
   unsigned char *copy = NULL;
 
   if (sqlite3_step(db->count_typeids) != SQLITE_ROW) {
@@ -116,9 +110,7 @@ reset:
   return(copy);
 }
 
-
 void *palettedb_count_typeid(palettedb db, const palettedb_type type, size_t *size){
-  const void    *p;
   unsigned char *copy = NULL;
 
   if (sqlite3_bind_int(db->count_typeid, 1, type) != SQLITE_OK) {
@@ -138,11 +130,10 @@ reset:
   return(copy);
 }
 
-
 palettedb_id palettedb_add(palettedb            db,
-                       const palettedb_type type,
-                       void               *blob,
-                       size_t             size){
+                           const palettedb_type type,
+                           void                 *blob,
+                           size_t               size){
   sqlite3_int64 id = -1;
 
   if (size > INT_MAX) {
@@ -174,7 +165,6 @@ reset:
   return(id);
 }
 
-
 void *palettedb_get(palettedb db, palettedb_id id, size_t *size){
   const void    *p;
   unsigned char *copy = NULL;
@@ -205,11 +195,10 @@ reset:
   return(copy);
 }
 
-
 void *palettedb_one(palettedb            db,
-                  const palettedb_type type,
-                  palettedb_id         *id,
-                  size_t             *size){
+                    const palettedb_type type,
+                    palettedb_id         *id,
+                    size_t               *size){
   const void    *p;
   unsigned char *copy = NULL;
 
@@ -241,7 +230,6 @@ reset:
   return(copy);
 }
 
-
 void palettedb_delete(palettedb db, palettedb_id id){
   if (sqlite3_bind_int64(db->delete, 1, id) != SQLITE_OK) {
     return;
@@ -253,11 +241,9 @@ void palettedb_delete(palettedb db, palettedb_id id){
   sqlite3_reset(db->delete);
 }
 
-
-static int try_again(void *arg, int times){
+static int try_again(__attribute__((unused)) void *arg, __attribute__((unused)) int times){
   return(1);
 }
-
 
 palettedb palettedb_open(const char *path){
   palettedb db;
@@ -416,9 +402,10 @@ palettedb palettedb_open(const char *path){
   return(db);
 } /* palettedb_open */
 
-
 void palettedb_close(palettedb db){
-  if (!db) return;
+  if (!db) {
+    return;
+  }
 
   sqlite3_finalize(db->distinct_typeids);
   sqlite3_finalize(db->typeid_ids);

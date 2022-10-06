@@ -5,11 +5,11 @@ palettes_srcs = [
 palettes_deps = [
     parson_dep,
     djbhash_dep,
-    incbin_dep,
+    incbin_dep,c_stringfn_dep,c_string_buffer_dep,
     #   spng_dep,
     #hex_png_pixel_utils_dep,
 ]
-palettes_lib = static_library('palettes',
+palettes_lib = library('palettes',
     palettes_srcs,
     dependencies: palettes_deps,
     include_directories: [

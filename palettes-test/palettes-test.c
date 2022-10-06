@@ -3,10 +3,11 @@
 #define INCBIN_PREFIX    __THEME__
 //////////////////
 #include "palettes-test.h"
+#include "palettes/tn.h"
 //////////////////
 struct djbhash PalettesHash;
-extern char    *EMBEDDED_PALETTE_NAMES[];
-extern int     EMBEDDED_PALETTE_NAMES_QTY;
+//#static char    *EMBEDDED_PALETTE_NAMES[];
+//static int     EMBEDDED_PALETTE_NAMES_QTY;
 //////////////////
 #define BIN_DATA(NAME) \
   __THEME__ ## NAME ## _json__ ## Data
@@ -80,7 +81,7 @@ int list_palettes(){
   if (args.verbose) {
     dbg(embedded_palettes_table_qty, %u);
   }
-  for (int i = 0; i < embedded_palettes_table_qty && i < args.count; i++) {
+  for (size_t i = 0; i < embedded_palettes_table_qty && i < (size_t)args.count; i++) {
     Palette _p = get_palette(embedded_palettes_table[i].data); P = &_p;
     if (!P) {
       continue;

@@ -1,20 +1,17 @@
 #include "db.h"
 
 unsigned long palettedb_hash(char *key, int length){
-  unsigned long i;
-  unsigned long hash;
+  unsigned long hash = 5381;
 
-  hash = 5381;
-  for ( i = 0; i < length; key++, i++ ) {
+  for (int i = 0; i < length; key++, i++ ) {
     hash = ((hash << 5) + hash) + (*key);
   }
   return(hash % PALETTEDB_MAX_HASH_BUCKETS);
 }
 
-
 int db_list_ids(PalettesDB *DB){
-  size_t       total_ids = 0, unique_typeids_qty = 0, typeid_qty = 0, type_ids_size = 0, type_ids_qty = 0, unique_typeids_size;
-  char *tmp;
+  size_t         total_ids = 0, unique_typeids_qty = 0, typeid_qty = 0, unique_typeids_size = 0;
+  char           *tmp;
   palettedb_type TYPEID = 2588928;
 
   unique_typeids_qty  = 0;
@@ -30,10 +27,10 @@ int db_list_ids(PalettesDB *DB){
   for (size_t processed_items = 0; processed_items < unique_typeids_qty; ) {
     if (strlen(tmp) > 0) {
       palettedb_type row_typeid    = atoi(tmp);
-      size_t       row_data_size = 0;
+      size_t         row_data_size = 0;
       printf("  item #%lu> %s (%lu bytes)  row typeid: %llu- %lu bytes\n", processed_items, tmp, strlen(tmp), row_typeid, row_data_size);
-      size_t       row_type_ids_size = 0, row_type_ids_qty = 0;
-      char         *id_type_ids = (char *)palettedb_get_typeid_ids(DB->db, row_typeid, &row_type_ids_size, &row_type_ids_qty);
+      size_t         row_type_ids_size = 0, row_type_ids_qty = 0;
+      char           *id_type_ids = (char *)palettedb_get_typeid_ids(DB->db, row_typeid, &row_type_ids_size, &row_type_ids_qty);
       printf("found %lu rows, %lu bytes of data for %llu ids list query\n",
              row_type_ids_qty,
              row_type_ids_size,
@@ -66,7 +63,6 @@ int db_list_ids(PalettesDB *DB){
     }
   }
 
-
   palettedb_count_typeid(DB->db, TYPEID, &typeid_qty);
   printf("type %llu has %lu items\n", TYPEID, typeid_qty);
 
@@ -78,10 +74,9 @@ int db_list_ids(PalettesDB *DB){
   return(0);
 } /* db_list_ids */
 
-
 palettedb_id db_get_typeid_id(PalettesDB *DB, palettedb_type TYPEID){
   palettedb_id id  = 0;
-  size_t     len = 0;
+  size_t       len = 0;
 
   palettedb_one(DB, TYPEID, &id, &len);
   if ((len > 0) && (id > 0)) {
@@ -90,18 +85,15 @@ palettedb_id db_get_typeid_id(PalettesDB *DB, palettedb_type TYPEID){
   return(-1);
 }
 
-
 bool db_typeid_exists(PalettesDB *DB, palettedb_type TYPEID){
   return(db_get_typeid_id(DB, TYPEID) > 0);
 }
-
 
 palettedb_id add_palettes_db(PalettesDB *DB, palettedb_type TYPEID, char *RECORD){
   palettedb_id id = palettedb_add(DB, TYPEID, (void *)RECORD, strlen(RECORD));
 
   return(id);
 }
-
 
 palettedb_id add_palettedb_if_not_exist(PalettesDB *DB, palettedb_type TYPEID, char *RECORD){
   palettedb_id id = db_get_typeid_id(DB, TYPEID);
@@ -111,7 +103,6 @@ palettedb_id add_palettedb_if_not_exist(PalettesDB *DB, palettedb_type TYPEID, c
   }
   return(add_palettes_db(DB, TYPEID, RECORD));
 }
-
 
 int init_palettes_db(PalettesDB *DB){
   DB->db = palettedb_open(DB->Path);

@@ -5,19 +5,19 @@
 #include <stdio.h>
 #include <string.h>
 //////////////////////////////////////////////////////
+#include "db-mgr.h"
+#include "sqlite3.h"
 #include "submodules/bytes/bytes.h"
 #include "submodules/c_ansi/ansi-codes/ansi-codes.h"
 #include "submodules/c_stringfn/include/stringfn.h"
 #include "submodules/fs.c/fs.h"
 #include "submodules/parson/parson.h"
-#include "sqlite3.h"
-#include "db-mgr.h"
 //////////////////////////////////////////////////////
-#define PALETTEDB_MAX_HASH_BUCKETS 65535 * 256
+#define PALETTEDB_MAX_HASH_BUCKETS    65535 * 256
 //////////////////////////////////////////////////////
 typedef struct PalettesDB PalettesDB;
 struct PalettesDB {
-  char    *Path;
+  char      *Path;
   palettedb db;
 };
 //////////////////////////////////////////////////////

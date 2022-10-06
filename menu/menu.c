@@ -37,9 +37,6 @@ typedef struct event_ {
 } event;
 event *event_current;
 
-static int min(int a, int b) {
-  return((a < b) ? a : b);
-}
 enum cell_t { DEAD,
               ALIVE };
 typedef struct board_t_ {

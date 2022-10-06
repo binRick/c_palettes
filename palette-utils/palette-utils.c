@@ -37,21 +37,19 @@ static char *__basename(const char *path){
 }
 
 int parse_embedded_palettes(){
-  //ct_start(NULL);
-  int         i = 0; EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
+  size_t      i = 0; EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   uint32_t    r;
   JSON_Value  *o;
   JSON_Object *O;
   short       ok;
-  char        *LINE, *NAME, *HEX, *colp, *ptr, *js;
-  int         qty = 0, ui, palettes_qty = 0;
+  char        *HEX;
+  int         qty = 0, palettes_qty = 0;
 
   char        *palette_line;
 
   while (EMBEDDED_PALETTES_TABLE_ITEM && (++i < EMBEDDED_PALETTES_TABLE_QTY)) {
-    char   *palette      = __basename((char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename);
-    size_t palette_size  = (size_t)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->size;
-    char   *palette_data = (char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data;
+    char *palette      = __basename((char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename);
+    char *palette_data = (char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data;
     if (strlen(palette_data) < MIN_PALETTE_SIZE) {
       continue;
     }
@@ -101,8 +99,6 @@ int parse_embedded_palettes(){
       C->hex = strdup(palette_line_val);
       free(palette_line_val);
       r = rgba_from_string(C->hex, &ok);
-      rgba_t rgba = rgba_new(r);
-      ui = strtoul(C->hex, &ptr, 16);
       ////////////////////
       C->ansicode      = 0; //hex_to_closest_ansi_code(ui);
       C->rgb           = malloc(sizeof(RGB_t));
@@ -262,7 +258,7 @@ int load_palettes_hash(){
   djbhash_reset_iterator(&EMBEDDED_PALETTES_TABLE_HASH);
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH)
   ;
-  for (int i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
+  for (size_t i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
     if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
       continue;
     }

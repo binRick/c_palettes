@@ -26,3 +26,5 @@ etc/themes
 etc/palettes.sqlite
 etc/.palettes.sqlite
 submodules/c_deps
+.meson.build*.log
+.meson-build*.log

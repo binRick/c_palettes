@@ -3,7 +3,7 @@ parser_srcs = [
 ]
 parser_deps = [
      c_string_buffer_dep,
-     c_fsio_dep,
+     c_fsio_dep,c_stringfn_dep,
      cargs_dep,
      parson_dep,
      db_dep,
