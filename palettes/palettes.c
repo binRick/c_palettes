@@ -62,70 +62,50 @@ char *get_palette_property_value(const char *PROPERTY_NAME, const char *PALETTE_
   switch (get_palette_data_type(PALETTE_DATA)) {
   case PALETTE_TYPE_KITTY:
   case PALETTE_TYPE_PALETA:
-    if (strcmp(PROPERTY_NAME, "background")) {
+    if (strcmp(PROPERTY_NAME, "background"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[0]));
-    }
-    if (strcmp(PROPERTY_NAME, "foreground")) {
+    if (strcmp(PROPERTY_NAME, "foreground"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[1]));
-    }
-    if (strcmp(PROPERTY_NAME, "cursor")) {
+    if (strcmp(PROPERTY_NAME, "cursor"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[2]));
-    }
-    if (strcmp(PROPERTY_NAME, "color00")) {
+    if (strcmp(PROPERTY_NAME, "color00"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[3]));
-    }
-    if (strcmp(PROPERTY_NAME, "color01")) {
+    if (strcmp(PROPERTY_NAME, "color01"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[4]));
-    }
-    if (strcmp(PROPERTY_NAME, "color02")) {
+    if (strcmp(PROPERTY_NAME, "color02"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[5]));
-    }
-    if (strcmp(PROPERTY_NAME, "color03")) {
+    if (strcmp(PROPERTY_NAME, "color03"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[6]));
-    }
-    if (strcmp(PROPERTY_NAME, "color04")) {
+    if (strcmp(PROPERTY_NAME, "color04"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[7]));
-    }
-    if (strcmp(PROPERTY_NAME, "color05")) {
+    if (strcmp(PROPERTY_NAME, "color05"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[8]));
-    }
-    if (strcmp(PROPERTY_NAME, "color06")) {
+    if (strcmp(PROPERTY_NAME, "color06"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[9]));
-    }
-    if (strcmp(PROPERTY_NAME, "color07")) {
+    if (strcmp(PROPERTY_NAME, "color07"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[10]));
-    }
-    if (strcmp(PROPERTY_NAME, "color08")) {
+    if (strcmp(PROPERTY_NAME, "color08"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[11]));
-    }
-    if (strcmp(PROPERTY_NAME, "color09")) {
+    if (strcmp(PROPERTY_NAME, "color09"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[12]));
-    }
-    if (strcmp(PROPERTY_NAME, "color10")) {
+    if (strcmp(PROPERTY_NAME, "color10"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[13]));
-    }
-    if (strcmp(PROPERTY_NAME, "color11")) {
+    if (strcmp(PROPERTY_NAME, "color11"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[14]));
-    }
-    if (strcmp(PROPERTY_NAME, "color12")) {
+    if (strcmp(PROPERTY_NAME, "color12"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[15]));
-    }
-    if (strcmp(PROPERTY_NAME, "color13")) {
+    if (strcmp(PROPERTY_NAME, "color13"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[16]));
-    }
-    if (strcmp(PROPERTY_NAME, "color14")) {
+    if (strcmp(PROPERTY_NAME, "color14"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[17]));
-    }
-    if (strcmp(PROPERTY_NAME, "color15")) {
+    if (strcmp(PROPERTY_NAME, "color15"))
       sprintf(PROPERTY_VALUE, "%s", strdup(PALETTE_LINES.strings[18]));
-    }
     break;
   case PALETTE_TYPE_KFC:
     for (int i = 0; i < PALETTE_LINES.count - 1; i++) {
       struct StringFNStrings LINE_SPLIT = stringfn_split(PALETTE_LINES.strings[i], '=');
-      if (LINE_SPLIT.count == 2 && (strcmp(LINE_SPLIT.strings[0], PROPERTY_NAME) == 0)) {
+      if (LINE_SPLIT.count == 2 && (strcmp(LINE_SPLIT.strings[0], PROPERTY_NAME) == 0))
         sprintf(PROPERTY_VALUE, "%s", strdup(LINE_SPLIT.strings[1]));
-      }
       stringfn_release_strings_struct(LINE_SPLIT);
     }
     break;
@@ -222,15 +202,14 @@ int get_palette_data_type(char *PALETTE_DATA){
               );
       fprintf(stderr, "%d/%d\n", LINE_SPLIT.count, PALETTE_LINES.count);
     }
-    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 2) {
+    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 2)
       return(PALETTE_TYPE_KITTY);
-    }
-    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 1) {
+
+    if (LINE_SPLIT.count == 1 && LINE_SPLIT_SPACE.count == 1)
       return(PALETTE_TYPE_PALETA);
-    }
-    if (LINE_SPLIT.count == 2 && LINE_SPLIT_SPACE.count == 1) {
+
+    if (LINE_SPLIT.count == 2 && LINE_SPLIT_SPACE.count == 1)
       return(PALETTE_TYPE_KFC);
-    }
   }
   return(-1);
 }

@@ -27,9 +27,8 @@ struct StringFNStrings pn_get_palette_files(){
 
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   for (int i = 0; EMBEDDED_PALETTES_TABLE_ITEM; i++) {
-    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
+    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1)
       continue;
-    }
     stringbuffer_append_string(sb,
                                ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename
                                );
@@ -46,9 +45,8 @@ void pn_get_palette_names(){
   struct StringFNStrings S   = pn_get_palette_files();
 
   for (int i = 0; i < S.count; i++) {
-    if (strlen(stringfn_trim(S.strings[i])) < 1) {
+    if (strlen(stringfn_trim(S.strings[i])) < 1)
       continue;
-    }
     stringbuffer_append_string(sb, stringfn_trim(S.strings[i]));
     stringbuffer_append_string(sb, "\n");
   }

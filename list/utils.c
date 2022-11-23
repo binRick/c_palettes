@@ -25,8 +25,7 @@ void ansi_truecolor_bg(FILE *file, int r, int g, int b) {
 static char *__basename(const char *path){
   const char *slash = strrchr(path, '/');
 
-  if (slash) {
+  if (slash)
     path = slash + 1;
-  }
   return((char *)path);
 }

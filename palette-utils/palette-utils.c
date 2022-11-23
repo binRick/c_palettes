@@ -30,9 +30,8 @@ struct djbhash      EMBEDDED_PALETTES_TABLE_HASH;
 static char *__basename(const char *path){
   const char *slash = strrchr(path, '/');
 
-  if (slash) {
+  if (slash)
     path = slash + 1;
-  }
   return((char *)path);
 }
 
@@ -50,11 +49,10 @@ int parse_embedded_palettes(){
   while (EMBEDDED_PALETTES_TABLE_ITEM && (++i < EMBEDDED_PALETTES_TABLE_QTY)) {
     char *palette      = __basename((char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename);
     char *palette_data = (char *)((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data;
-    if (strlen(palette_data) < MIN_PALETTE_SIZE) {
+    if (strlen(palette_data) < MIN_PALETTE_SIZE)
       continue;
-    }
     struct StringFNStrings palette_lines = stringfn_split_lines_and_trim(palette_data);
-    if (PALETTE_UTILS_EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG) {
+    if (PALETTE_UTILS_EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG)
       fprintf(stdout,
               AC_RESETALL AC_REVERSED AC_MAGENTA_BLACK "%s" AC_RESETALL
               AC_RESETALL AC_REVERSED AC_RED_BLACK AC_BOLD "%d" AC_RESETALL
@@ -63,24 +61,20 @@ int parse_embedded_palettes(){
               palette_data,
               palette_lines.count
               );
-    }
     struct StringFNStrings palette_line_split;
     char                   *palette_line_key, *palette_line_val;
     char                   *json_string;
     for (int li = 0; li < palette_lines.count; li++) {
       palette_line = stringfn_trim(palette_lines.strings[li]);
-      if (strlen(palette_line) < 1) {
+      if (strlen(palette_line) < 1)
         continue;
-      }
       palette_line_split = stringfn_split(palette_line, '=');
-      if (palette_line_split.count != 2) {
+      if (palette_line_split.count != 2)
         continue;
-      }
       palette_line_key = strdup(palette_line_split.strings[0]);
       palette_line_val = strdup(stringfn_to_uppercase(palette_line_split.strings[1]));
-      if ((strlen(palette_line_key) < 5) || (strlen(palette_line_val) != 6)) {
+      if ((strlen(palette_line_key) < 5) || (strlen(palette_line_val) != 6))
         continue;
-      }
 
       if (!stringfn_starts_with(palette_line_val, "#")) {
         HEX = malloc(strlen(palette_line_val) + 1);
@@ -89,9 +83,8 @@ int parse_embedded_palettes(){
         free(HEX);
       }
 
-      if (strlen(palette_line_val) != 7) {
+      if (strlen(palette_line_val) != 7)
         continue;
-      }
 
       ColorInfo *C = malloc(sizeof(ColorInfo));
       C->name = strdup(palette_line_key);
@@ -118,7 +111,7 @@ int parse_embedded_palettes(){
       sprintf(C->truecolor->bg, TRUECOLOR_BG_CODE, C->rgb->red, C->rgb->green, C->rgb->blue);
       sprintf(C->ansi->fg, "\x1b[38;5;%dm", C->ansicode);
       sprintf(C->ansi->bg, "\x1b[48;5;%dm", C->ansicode);
-      if (PALETTE_UTILS_EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG) {
+      if (PALETTE_UTILS_EMBEDDED_PALETTES_TABLE_VERBOSE_DEBUG)
         fprintf(stdout,
                 AC_UNDERLINE AC_YELLOW_BLACK "RGB" AC_RESETALL
                 "  =>  "
@@ -134,7 +127,6 @@ int parse_embedded_palettes(){
                 C->name,
                 C->hex, C->rgb->red, C->rgb->green, C->rgb->blue
                 );
-      }
       o = json_value_init_object();
       O = json_value_get_object(o);
       json_object_set_string(O, "name", C->name);
@@ -152,20 +144,17 @@ int parse_embedded_palettes(){
       //assert_nonnull(json_string);
       ////////////////////////////////////////////////////
       if (DEBUG_PALETTE_JSON_CONTENT || DEBUG_PALETTE_PRETTY_JSON_CONTENT) {
-        if (DEBUG_PALETTE_CONTENT_COLORS) {
+        if (DEBUG_PALETTE_CONTENT_COLORS)
           ansi_truecolor_bg(stdout, C->rgb->red, C->rgb->green, C->rgb->blue);
-        }
         if (DEBUG_PALETTE_PRETTY_JSON_CONTENT) {
           free(json_string);
           json_string = json_serialize_to_string_pretty(o);
           //assert_nonnull(json_string);
         }
-        if (DEBUG_PALETTE_JSON_CONTENT) {
+        if (DEBUG_PALETTE_JSON_CONTENT)
           fprintf(stdout, "%s\n", json_string);
-        }
-        if (DEBUG_PALETTE_CONTENT_COLORS) {
+        if (DEBUG_PALETTE_CONTENT_COLORS)
           ansi_reset(stdout);
-        }
         free(json_string);
       }
       ///////////////////////////////////////////////////////////////////////////////////////////
@@ -179,7 +168,7 @@ int parse_embedded_palettes(){
 
   //ct_stop("");
 
-  if (VERBOSE_MODE) {
+  if (VERBOSE_MODE)
     fprintf(stderr,
             acs(DEFAULT_STYLE "Parsed ")
             acs(AC_GREEN_BLACK AC_BOLD AC_REVERSED "%d")
@@ -201,7 +190,6 @@ int parse_embedded_palettes(){
             EMBEDDED_PALETTES_TABLE_QTY,
             EMBEDDED_PALETTES_AGE_STRING
             );
-  }
   return(0);
 } /* parse_embedded_palettes */
 
@@ -226,9 +214,8 @@ struct StringFNStrings get_palette_names(){
   struct StringFNStrings S   = get_palette_files();
 
   for (int i = 0; i < S.count; i++) {
-    if (strlen(stringfn_trim(S.strings[i])) < 1) {
+    if (strlen(stringfn_trim(S.strings[i])) < 1)
       continue;
-    }
     stringbuffer_append_string(sb, stringfn_trim(__basename(S.strings[i])));
     stringbuffer_append_string(sb, "\n");
   }
@@ -240,9 +227,8 @@ struct StringFNStrings get_palette_files(){
 
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH);
   for (int i = 0; EMBEDDED_PALETTES_TABLE_ITEM; i++) {
-    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
+    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1)
       continue;
-    }
     stringbuffer_append_string(sb,
                                ((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->filename
                                );
@@ -259,9 +245,8 @@ int load_palettes_hash(){
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_iterate(&EMBEDDED_PALETTES_TABLE_HASH)
   ;
   for (size_t i = 0; i < EMBEDDED_PALETTES_TABLE_QTY; i++) {
-    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1) {
+    if (strlen(EMBEDDED_PALETTES_TABLE_NAME[i].filename) < 1)
       continue;
-    }
     char *FILENAME = strdup(EMBEDDED_PALETTES_TABLE_NAME[i].filename);
     djbhash_set(
       &EMBEDDED_PALETTES_TABLE_HASH,
@@ -318,11 +303,9 @@ int palette_name_exists_qty(char *PALETTE_NAME){
   int                    qty   = 0;
   struct StringFNStrings names = get_palette_names();
 
-  for (int i = 0; i < names.count; i++) {
-    if (stringfn_equal(PALETTE_NAME, names.strings[i])) {
+  for (int i = 0; i < names.count; i++)
+    if (stringfn_equal(PALETTE_NAME, names.strings[i]))
       qty++;
-    }
-  }
   return(qty);
 }
 
@@ -330,13 +313,12 @@ struct StringFNStrings palette_file_content(char *PALETTE_FILE){
   struct StringBuffer *sb = stringbuffer_new_with_options(1024, true);
 
   EMBEDDED_PALETTES_TABLE_ITEM = djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, PALETTE_FILE);
-  if (EMBEDDED_PALETTES_TABLE_ITEM != NULL) {
+  if (EMBEDDED_PALETTES_TABLE_ITEM != NULL)
     stringbuffer_append_string(sb, stringfn_trim(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data));
-  }else{
+  else{
     EMBEDDED_PALETTES_TABLE_ITEM = djbhash_find(&EMBEDDED_PALETTES_TABLE_HASH, prefix_string("./", PALETTE_FILE));
-    if (EMBEDDED_PALETTES_TABLE_ITEM != NULL) {
+    if (EMBEDDED_PALETTES_TABLE_ITEM != NULL)
       stringbuffer_append_string(sb, stringfn_trim(((C_EMBED_TBL *)(EMBEDDED_PALETTES_TABLE_ITEM)->value)->data));
-    }
   }
   return(stringbuffer_to_strings(sb));
 }

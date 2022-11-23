@@ -78,27 +78,23 @@ args_t args = {
 int list_palettes(){
   Palette *P;
 
-  if (args.verbose) {
+  if (args.verbose)
     dbg(embedded_palettes_table_qty, %u);
-  }
   for (size_t i = 0; i < embedded_palettes_table_qty && i < (size_t)args.count; i++) {
     Palette _p = get_palette(embedded_palettes_table[i].data); P = &_p;
-    if (!P) {
+    if (!P)
       continue;
-    }
     bool name_match = wildcardcmp(args.palette, palettes_basename(embedded_palettes_table[i].filename)),
          type_match = wildcardcmp(args.palette_type, P->TypeName)
     ;
-    if (type_match != 1 || name_match != 1) {
+    if (type_match != 1 || name_match != 1)
       continue;
-    }
 
     fprintf(stdout, "%s\n", palettes_basename(embedded_palettes_table[i].filename));
-    if (args.pretty) {
+    if (args.pretty)
       fprintf(stdout, "%s\n", P->JSON_PRETTY);
-    }else{
+    else
       fprintf(stdout, "%s\n", P->JSON);
-    }
 
     if (args.verbose) {
       dbg(name_match, %d);
@@ -133,14 +129,12 @@ int list_palettes(){
 } /* list_palettes */
 
 int list_palette_types(){
-  if (args.verbose) {
+  if (args.verbose)
     dbg(PALETTE_TYPE_NAMES_QTY, %d);
-  }
   for (int i = 0; i < PALETTE_TYPE_NAMES_QTY && i < args.count; i++) {
     bool type_match = wildcardcmp(args.palette_type, PALETTE_TYPE_NAMES[i]);
-    if (type_match != 1) {
+    if (type_match != 1)
       continue;
-    }
     fprintf(stdout, "%s\n", PALETTE_TYPE_NAMES[i]);
     if (args.verbose) {
       dbg(type_match, %d);
@@ -225,15 +219,15 @@ int main(int argc, char **argv) {
   if ((argc >= 2) && (strcmp(argv[1], "--test") == 0)) {
     printf("Test OK\n"); return(0);
   }
-  if ((strcmp(args.mode, "args") == 0)) {
+  if ((strcmp(args.mode, "args") == 0))
     return(debug_args());
-  }
-  if ((strcmp(args.mode, "types") == 0)) {
+
+  if ((strcmp(args.mode, "types") == 0))
     return(list_palette_types());
-  }
-  if ((strcmp(args.mode, "list") == 0)) {
+
+  if ((strcmp(args.mode, "list") == 0))
     return(list_palettes());
-  }
+
 
   printf(AC_RESETALL AC_RED "No mode selected: %s\n" AC_RESETALL, args.mode);
   return(1);
